@@ -1,0 +1,49 @@
+{
+  "name": "monaco-esql",
+  "version": "0.0.1",
+  "private": false,
+  "publishConfig": {
+    "access": "public"
+  },
+  "description": "Monaco editor Monarch language syntax definitions for ES|QL",
+  "main": "lib/index.js",
+  "files": [
+    "LICENSE",
+    "lib/"
+  ],
+  "scripts": {
+    "format": "biome format ./src",
+    "format:fix": "biome format --write ./src",
+    "lint": "biome lint ./src",
+    "lint:fix": "biome lint --apply ./src",
+    "test": "echo \"no tests...\"",
+    "clean": "npx rimraf@5.0.5 lib",
+    "build:es2020": "tsc --project tsconfig.build.json --module commonjs --target es2020 --outDir lib",
+    "build": "yarn build:es2020"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/elastic/highlightjs-esql.git"
+  },
+  "keywords": [
+    "esql",
+    "es|ql",
+    "elastic",
+    "search processing language",
+    "eql",
+    "monacor",
+    "monarch",
+    "vscode",
+    "code",
+    "syntax"
+  ],
+  "bugs": {
+    "url": "https://github.com/elastic/monaco-esql/issues"
+  },
+  "homepage": "https://github.com/elastic/monaco-esql",
+  "devDependencies": {
+    "@biomejs/biome": "^1.9.4",
+    "typescript": "^5.7.3"
+  }
+}
