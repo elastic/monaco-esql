@@ -216,7 +216,7 @@ return {
       { include: "@whitespace" },
 
       // Keywords
-      [/[@a-zA-Z_$][\w$]*/, {
+      [/[a-zA-Z_$][\w$]*/, {
 				cases: {
 					'@commands': { token: 'keyword.command.$0' },
 					'@options': { token: 'keyword.option.$0' },
