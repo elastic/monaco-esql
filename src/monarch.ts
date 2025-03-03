@@ -184,7 +184,7 @@ const otherNamedOperators = ['ASC', 'DESC', 'FIRST', 'LAST', 'NULLS', 'NOT'];
 
 export const language: languages.IMonarchLanguage = {
   // Uncomment when developing.
-  defaultToken: "invalid",
+  // defaultToken: "invalid",
 
   // ES|QL is case-insensitive.
   ignoreCase: true,
