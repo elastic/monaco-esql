@@ -182,7 +182,7 @@ const delimiters = [
 const binaryNamedOperators = ['AND', 'OR', 'IS', 'IN', 'AS', 'LIKE', 'RLIKE'];
 const otherNamedOperators = ['ASC', 'DESC', 'FIRST', 'LAST', 'NULLS', 'NOT'];
 
-export const language: languages.IMonarchLanguage = {
+export const monarchLanguage: languages.IMonarchLanguage = {
   // Uncomment when developing.
   // defaultToken: "invalid",
 
