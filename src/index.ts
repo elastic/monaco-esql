@@ -1,1 +1,1 @@
-export { monarchLanguage } from './monarch';
+export { monarchLanguage } from "./monarch";
