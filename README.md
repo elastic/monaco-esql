@@ -1,6 +1,9 @@
 # ES|QL syntax grammar for Monaco editor
 
-This package contains the ES|QL grammar form Monarch (the Monaco editor grammar engine).
+This package contains the ES|QL grammar form Monarch (the Monaco editor
+grammar engine).
+
+<img width="725" alt="image" src="https://github.com/user-attachments/assets/a725841e-68d6-4765-aa29-54a3062e6a3e" />
 
 
 ## Usage
