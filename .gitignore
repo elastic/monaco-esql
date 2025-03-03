@@ -126,3 +126,5 @@ typedocs/
 out.bin
 
 /gh-pages/
+
+*storybook.log
