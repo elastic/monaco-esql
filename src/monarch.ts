@@ -1,9 +1,4 @@
-const brackets = [
-  { open: "[", close: "]", token: "delimiter.square" },
-  { open: "(", close: ")", token: "delimiter.parenthesis" },
-  { open: "{", close: "}", token: "delimiter.curly" },
-  { open: "<", close: ">", token: "delimiter.angle" },
-];
+import { languages } from 'monaco-editor';
 
 const commands = [
   "DISSECT",
@@ -187,7 +182,7 @@ const delimiters = [
 const binaryNamedOperators = ['AND', 'OR', 'IS', 'IN', 'AS', 'LIKE', 'RLIKE'];
 const otherNamedOperators = ['ASC', 'DESC', 'FIRST', 'LAST', 'NULLS', 'NOT'];
 
-return {
+export const language: languages.IMonarchLanguage = {
   // Uncomment when developing.
   defaultToken: "invalid",
 
@@ -209,7 +204,12 @@ return {
 	escapes: /\\(?:[abfnrtv\\"']|x[0-9A-Fa-f]{1,4}|u[0-9A-Fa-f]{4}|U[0-9A-Fa-f]{8})/,
 	digits: /\d+(_+\d+)*/,
 
-  brackets,
+  brackets: [
+    { open: "[", close: "]", token: "delimiter.square" },
+    { open: "(", close: ")", token: "delimiter.parenthesis" },
+    { open: "{", close: "}", token: "delimiter.curly" },
+    { open: "<", close: ">", token: "delimiter.angle" },
+  ],
 
   tokenizer: {
     root: [
@@ -231,7 +231,7 @@ return {
       { include: "@expression" },
       { include: "@processingCommand" },
 
-      // [/\[|\(|\)|\]/, '@brackets'],
+      [/\[|\(|\)|\]/, '@brackets'],
     ],
 
     // --------------------------------- Hidden channel: whitespace and comments
