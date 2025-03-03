@@ -1,5 +1,5 @@
 {
-  "name": "monaco-esql",
+  "name": "@elastic/monaco-esql",
   "version": "0.0.1",
   "private": false,
   "publishConfig": {
