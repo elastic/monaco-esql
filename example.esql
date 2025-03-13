@@ -7,7 +7,7 @@
   | SHOW INFO
   | NEW_COMMAND "hello"
   | METRICS index_pattern, logs-* BY date, ip
-  | EVAL kb = bytes / 1024 * -1.23e456 + ?param, foo = "ba\"asdfr"
+  | EVAL kb = bytes / 1024 * -1.23e456 + ?param <= 3 << 4, foo = "ba\"asdfr"
   | WHERE process.name == "curl.exe /* asdf */" AND ?42 == 123 OR ?
   | WHERE event_duration > /* very big number */ 5000000
   | WHERE message LIKE "Connected*"

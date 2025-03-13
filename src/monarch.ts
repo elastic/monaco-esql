@@ -256,17 +256,24 @@ export const monarchLanguage: languages.IMonarchLanguage = {
 						"@options": { token: "keyword.option.$0" },
 						"@literals": { token: "keyword.literal.$0" },
 						"@functions": { token: "identifier.function.$0" },
-						"@delimiters": { token: "delimiter" },
 						"@namedOperators": { token: "keyword.operator.$0" },
 						"@default": "identifier",
 					},
 				},
 			],
-
+			
 			{ include: "@expression" },
 			{ include: "@processingCommand" },
 
 			[/\[|\(|\)|\]/, "@brackets"],
+			[
+				/[^\s]+/,
+				{
+					cases: {
+						"@delimiters": "delimiter",
+					},
+				},
+			],
 		],
 
 		// --------------------------------- Hidden channel: whitespace and comments
@@ -336,9 +343,6 @@ export const monarchLanguage: languages.IMonarchLanguage = {
 
 			// Escaped column parts: nested.`escaped`.column
 			[/`/, "string", "@column_escape_part"],
-
-			// Source index pattern date-math expression: <logs-{now/d}>
-			[/</, "string", "@datemath_source"],
 		],
 
 		literal: [
@@ -384,13 +388,6 @@ export const monarchLanguage: languages.IMonarchLanguage = {
 			[/@escapes/, "string.escape"],
 			[/\\./, "string.escape.invalid"],
 			[/`/, "string", "@pop"],
-		],
-
-		datemath_source: [
-			[/[^>]+/, "string"],
-			[/@escapes/, "string.escape"],
-			[/\\./, "string.escape.invalid"],
-			[/>/, "string", "@pop"],
 		],
 	},
 };
