@@ -12,7 +12,7 @@ To highlight ES|QL code in Monaco editor, you need to register ES|QL language
 and its Monarch grammar:
 
 ```js
-import { monarchLanguage } from '@elastic/monaco-esql';
+import { language as monarchLanguage } from '@elastic/monaco-esql/lib/monarch-shared';
 
 monaco.languages.register({id: 'esql'});
 monaco.languages.setMonarchTokensProvider('esql', monarchLanguage);
