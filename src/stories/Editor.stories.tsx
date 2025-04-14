@@ -2,7 +2,7 @@ import * as React from "react";
 import type { Meta, StoryObj } from "@storybook/react";
 import Editor from "@monaco-editor/react";
 import example from "../../example.esql?raw";
-import { monarchLanguage } from "..";
+import { language } from "../monarch-shared";
 
 const meta: Meta = {
 	title: "Editor",
@@ -20,7 +20,7 @@ export const Primary: StoryObj<typeof meta> = {
 				defaultValue={example}
 				onMount={(_, monaco) => {
 					monaco.languages.register({ id: "esql" });
-					monaco.languages.setMonarchTokensProvider("esql", monarchLanguage);
+					monaco.languages.setMonarchTokensProvider("esql", language);
 				}}
 			/>
 		</div>
