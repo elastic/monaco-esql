@@ -5,6 +5,7 @@
   /* This is a multiline
      comment */
   | SHOW INFO
+  | FORK (WHERE ?param.test = "asdf" | LIMIT 123) (LIMIT 123)
   | NEW_COMMAND "hello"
   | METRICS index_pattern, logs-* BY date, ip
   | EVAL kb = bytes / 1024 * -1.23e456 + ?param <= 3 << 4, foo = "ba\"asdfr"
