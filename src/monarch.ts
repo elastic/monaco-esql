@@ -15,7 +15,7 @@ export const create = (
 		temporalUnits = [],
 	} = deps;
 
-	const timeUnits = temporalUnits.flat().sort((a, b) => a > b ? -1 : 1);
+	const timeUnits = temporalUnits.flat().sort((a, b) => (a > b ? -1 : 1));
 
 	return {
 		// Uncomment when developing.
@@ -133,7 +133,10 @@ export const create = (
 				],
 
 				// If command name is not well known, just matches the first word.
-				[/\w+\b/, { token: "keyword.command.processing.$0", switchTo: "@root" }],
+				[
+					/\w+\b/,
+					{ token: "keyword.command.processing.$0", switchTo: "@root" },
+				],
 			],
 
 			// ------------------------------------------------------------- Expressions
@@ -172,9 +175,7 @@ export const create = (
 				],
 			],
 
-			timeInterval: [
-				[`(@digits)\\s*(${timeUnits.join("|")})`, "number.time"],
-			],
+			timeInterval: [[`(@digits)\\s*(${timeUnits.join("|")})`, "number.time"]],
 
 			number: [
 				[/(@digits)[eE]([\-+]?(@digits))?/, "number.float"],
