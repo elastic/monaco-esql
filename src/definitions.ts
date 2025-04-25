@@ -228,3 +228,20 @@ export const operators = {
 		other: ["ASC", "DESC", "FIRST", "LAST", "NULLS", "NOT"],
 	},
 };
+
+export type TemporalUnit = [unit: string, ...abbreviations: string[]];
+
+/**
+ * @see https://www.elastic.co/docs/reference/query-languages/esql/esql-time-spans#esql-time-spans-table
+ */
+export const temporalUnits: TemporalUnit[] = [
+	["YEAR", "Y", "YR", "YEARS"],
+	["QUARTER", "Q", "QUARTERS"],
+	["MONTH", "MO", "MONTHS"],
+	["WEEK", "W", "WEEKS"],
+	["DAY", "D", "DAYS"],
+	["HOUR", "H", "HOURS"],
+	["MINUTE", "MIN", "MINUTES"],
+	["SECOND", "S", "SEC", "SECONDS"],
+	["MILLISECOND", "MS", "MILLISECONDS"],
+];

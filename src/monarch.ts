@@ -12,7 +12,10 @@ export const create = (
 		literals = [],
 		functions = [],
 		delimiters = [],
+		temporalUnits = [],
 	} = deps;
+
+	const timeUnits = temporalUnits.flat().sort((a, b) => a > b ? -1 : 1);
 
 	return {
 		// Uncomment when developing.
@@ -153,6 +156,7 @@ export const create = (
 			],
 
 			literal: [
+				{ include: "@timeInterval" },
 				{ include: "@number" },
 
 				// Params
@@ -166,6 +170,10 @@ export const create = (
 						},
 					},
 				],
+			],
+
+			timeInterval: [
+				[`(@digits)\\s*(${timeUnits.join("|")})`, "number.time"],
 			],
 
 			number: [
