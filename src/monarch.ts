@@ -6,12 +6,16 @@ export const create = (
 	deps: CreateDependencies = {},
 ): languages.IMonarchLanguage => {
 	const {
-		commands = [],
+		sourceCommands = [],
+		processingCommands = [],
 		options = [],
 		literals = [],
 		functions = [],
 		delimiters = [],
+		temporalUnits = [],
 	} = deps;
+
+	const timeUnits = temporalUnits.flat().sort((a, b) => (a > b ? -1 : 1));
 
 	return {
 		// Uncomment when developing.
@@ -21,7 +25,8 @@ export const create = (
 		ignoreCase: true,
 
 		// Lists of known language keywords and built-ins.
-		commands,
+		sourceCommands,
+		processingCommands,
 		options,
 		literals,
 		functions,
@@ -52,7 +57,8 @@ export const create = (
 					/[a-zA-Z_$][\w$]*/,
 					{
 						cases: {
-							"@commands": { token: "keyword.command.$0" },
+							"@sourceCommands": { token: "keyword.command.source.$0" },
+							"@processingCommands": { token: "keyword.command.processing.$0" },
 							"@options": { token: "keyword.option.$0" },
 							"@literals": { token: "keyword.literal.$0" },
 							"@functions": { token: "identifier.function.$0" },
@@ -118,12 +124,19 @@ export const create = (
 			commandName: [
 				// First tries to match all known command names.
 				[
-					commands.join("|"),
-					{ token: "keyword.command.name", switchTo: "@root" },
+					sourceCommands.join("|"),
+					{ token: "keyword.command.source.$0", switchTo: "@root" },
+				],
+				[
+					processingCommands.join("|"),
+					{ token: "keyword.command.processing.$0", switchTo: "@root" },
 				],
 
 				// If command name is not well known, just matches the first word.
-				[/\w+\b/, { token: "keyword.command.name", switchTo: "@root" }],
+				[
+					/\w+\b/,
+					{ token: "keyword.command.processing.$0", switchTo: "@root" },
+				],
 			],
 
 			// ------------------------------------------------------------- Expressions
@@ -146,6 +159,7 @@ export const create = (
 			],
 
 			literal: [
+				{ include: "@timeInterval" },
 				{ include: "@number" },
 
 				// Params
@@ -160,6 +174,8 @@ export const create = (
 					},
 				],
 			],
+
+			timeInterval: [[`(@digits)\\s*(${timeUnits.join("|")})`, "number.time"]],
 
 			number: [
 				[/(@digits)[eE]([\-+]?(@digits))?/, "number.float"],

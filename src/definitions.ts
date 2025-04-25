@@ -1,15 +1,26 @@
-export const commands = [
+export const sourceCommands = [
+	"FROM",
+	"ROW",
+	"EXPLAIN",
+	"SHOW INFO",
+	"SHOW",
+	"TS",
+];
+
+export const processingCommands = [
+	"CHANGE_POINT",
+	"COMPLETION",
 	"DISSECT",
 	"DROP",
 	"ENRICH",
 	"EVAL",
-	"EXPLAIN",
 	"FORK",
-	"FROM",
+	"FORK",
 	"FULL JOIN",
 	"GROK",
 	"INFO",
 	"INLINESTATS",
+	"INSIST",
 	"JOIN",
 	"KEEP",
 	"LEFT JOIN",
@@ -20,11 +31,10 @@ export const commands = [
 	"METRICS",
 	"MV_EXPAND",
 	"RENAME",
+	"RERANK",
 	"RIGHT JOIN",
 	"RIGHT",
-	"ROW",
-	"SHOW INFO",
-	"SHOW",
+	"RRF",
 	"SORT",
 	"STATS",
 	"WHERE",
@@ -218,3 +228,20 @@ export const operators = {
 		other: ["ASC", "DESC", "FIRST", "LAST", "NULLS", "NOT"],
 	},
 };
+
+export type TemporalUnit = [unit: string, ...abbreviations: string[]];
+
+/**
+ * @see https://www.elastic.co/docs/reference/query-languages/esql/esql-time-spans#esql-time-spans-table
+ */
+export const temporalUnits: TemporalUnit[] = [
+	["YEAR", "Y", "YR", "YEARS"],
+	["QUARTER", "Q", "QUARTERS"],
+	["MONTH", "MO", "MONTHS"],
+	["WEEK", "W", "WEEKS"],
+	["DAY", "D", "DAYS"],
+	["HOUR", "H", "HOURS"],
+	["MINUTE", "MIN", "MINUTES"],
+	["SECOND", "S", "SEC", "SECONDS"],
+	["MILLISECOND", "MS", "MILLISECONDS"],
+];
