@@ -1,11 +1,18 @@
-export const commands = [
+export const sourceCommands = [
+	"FROM",
+	"ROW",
+	"EXPLAIN",
+	"SHOW INFO",
+	"SHOW",
+	"TS",
+];
+
+export const processingCommands = [
 	"DISSECT",
 	"DROP",
 	"ENRICH",
 	"EVAL",
-	"EXPLAIN",
 	"FORK",
-	"FROM",
 	"FULL JOIN",
 	"GROK",
 	"INFO",
@@ -22,9 +29,6 @@ export const commands = [
 	"RENAME",
 	"RIGHT JOIN",
 	"RIGHT",
-	"ROW",
-	"SHOW INFO",
-	"SHOW",
 	"SORT",
 	"STATS",
 	"WHERE",
