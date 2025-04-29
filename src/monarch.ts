@@ -40,6 +40,7 @@ export const create = (
 		escapes:
 			/\\(?:[abfnrtv\\"']|x[0-9A-Fa-f]{1,4}|u[0-9A-Fa-f]{4}|U[0-9A-Fa-f]{8})/,
 		digits: /\d+(_+\d+)*/,
+		symbols: /[=><!~:&|+\-*\/\^%\.,]+/,
 
 		brackets: [
 			{ open: "[", close: "]", token: "delimiter.square" },
@@ -54,7 +55,7 @@ export const create = (
 
 				// Keywords
 				[
-					/[a-zA-Z_$][\w$]*/,
+					/@?[a-zA-Z_$][\w$]*/,
 					{
 						cases: {
 							"@sourceCommands": { token: "keyword.command.source.$0" },
@@ -63,6 +64,7 @@ export const create = (
 							"@literals": { token: "keyword.literal.$0" },
 							"@functions": { token: "identifier.function.$0" },
 							"@namedOperators": { token: "keyword.operator.$0" },
+							"\\@{1}timestamp": "identifier.timestamp",
 							"@default": "identifier",
 						},
 					},
@@ -72,11 +74,13 @@ export const create = (
 				{ include: "@processingCommand" },
 
 				[/\[|\(|\)|\]/, "@brackets"],
+
 				[
-					/[^\s]+/,
+					/@symbols/,
 					{
 						cases: {
 							"@delimiters": "delimiter",
+							"@default": "",
 						},
 					},
 				],
