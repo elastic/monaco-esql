@@ -23,7 +23,7 @@
   | STATS bytes = (SUM(destination.bytes, true) BY coord.?asdf.lat)::INTEGER
   | SORT @timestamp DESC
   | SORT kb, date ASC NULLS FIRST, ip DESC NULLS LAST
-  | DROP date, ip, AVG(FALSE, null)
+  | DROP date, ip, AVG(FALSE, null, { "this": "is", "map": 123, "arr": [TRUE, FALSE] })
   | RENAME field AS another_field, another_field AS field
   | RENAME unique_queries AS `Unique Queries`
   /**

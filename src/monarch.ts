@@ -55,7 +55,7 @@ export const create = (
 
 				// Keywords
 				[
-					/[a-zA-Z_$][\w$]*/,
+					/@?[a-zA-Z_$][\w$]*/,
 					{
 						cases: {
 							"@sourceCommands": { token: "keyword.command.source.$0" },
@@ -64,6 +64,7 @@ export const create = (
 							"@literals": { token: "keyword.literal.$0" },
 							"@functions": { token: "identifier.function.$0" },
 							"@namedOperators": { token: "keyword.operator.$0" },
+							'\\@{1}timestamp': "identifier.timestamp",
 							"@default": "identifier",
 						},
 					},
