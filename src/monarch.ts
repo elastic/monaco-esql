@@ -64,7 +64,7 @@ export const create = (
 							"@literals": { token: "keyword.literal.$0" },
 							"@functions": { token: "identifier.function.$0" },
 							"@namedOperators": { token: "keyword.operator.$0" },
-							'\\@{1}timestamp': "identifier.timestamp",
+							"\\@{1}timestamp": "identifier.timestamp",
 							"@default": "identifier",
 						},
 					},
@@ -75,12 +75,15 @@ export const create = (
 
 				[/\[|\(|\)|\]/, "@brackets"],
 
-				[/@symbols/, {
-					cases: {
-						'@delimiters': 'delimiter',
-						'@default': ''
-					}
-				}],
+				[
+					/@symbols/,
+					{
+						cases: {
+							"@delimiters": "delimiter",
+							"@default": "",
+						},
+					},
+				],
 			],
 
 			// --------------------------------- Hidden channel: whitespace and comments
