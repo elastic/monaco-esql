@@ -1,6 +1,6 @@
 // This is a comment, not a "string"
  /*asdf*/  EXPLAIN [ FROM index, "this=that", <logs-{now/d}> ]
-  | FROM index, cluster:index, "another_index", """index""" METADATA _id, _index
+  | FROM index, metrics:index, "another_index", """index""", metrics-metrics-metrics METADATA _id, _index
   | ROW num = 123, another_field = "value", arr.nested = [1, 2, 3], nested.`escaped`.??param = NULL
   /* This is a multiline
      comment */
@@ -13,7 +13,7 @@
   | WHERE process.name == "curl.exe /* asdf */" AND ?42 == 123 OR ?
   | WHERE event_duration > /* very big number */ 5000000
   | WHERE message LIKE "Connected*"
-  | KEEP kb, destination.address, date, ip, email, num
+  | KEEP kb, destination.address, date, ip, email, num, avg.avg.avg
   // The ten is
   // very sensible number
   | LIMIT 10
