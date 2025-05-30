@@ -15,7 +15,7 @@ export const create = (
 		temporalUnits = [],
 	} = deps;
 
-	const timeUnits = temporalUnits.flat().sort((a, b) => (a > b ? -1 : 1));
+	const timeUnits = withLowercaseVariants(temporalUnits.flat()).sort((a, b) => (a > b ? -1 : 1));
 
 	return {
 		// Uncomment when developing.
@@ -32,10 +32,10 @@ export const create = (
 		literals: withLowercaseVariants(literals),
 		functions: withLowercaseVariants(functions),
 		delimiters,
-		namedOperators: [
+		namedOperators: withLowercaseVariants([
 			...(deps.operators?.named?.binary ?? []),
 			...(deps.operators?.named?.other ?? []),
-		],
+		]),
 
 		// Pre-defined regular expressions.
 		escapes:
@@ -224,4 +224,3 @@ function withLowercaseVariants(list: string[]): string[] {
   }
   return Array.from(set);
 }
-
