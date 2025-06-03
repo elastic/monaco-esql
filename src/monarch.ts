@@ -15,26 +15,27 @@ export const create = (
 		temporalUnits = [],
 	} = deps;
 
-	const timeUnits = temporalUnits.flat().sort((a, b) => (a > b ? -1 : 1));
+	const timeUnits = withLowercaseVariants(temporalUnits.flat()).sort((a, b) => (a > b ? -1 : 1));
 
 	return {
 		// Uncomment when developing.
 		// defaultToken: "invalid",
 
 		// ES|QL is case-insensitive.
-		ignoreCase: true,
+		ignoreCase: false,
 
 		// Lists of known language keywords and built-ins.
-		sourceCommands,
-		processingCommands,
-		options,
-		literals,
-		functions,
+		sourceCommands: withLowercaseVariants(sourceCommands),
+		processingCommands: withLowercaseVariants(processingCommands),
+		processingCommandsOnlyUppercase: processingCommands,
+		options: withLowercaseVariants(options),
+		literals: withLowercaseVariants(literals),
+		functions: withLowercaseVariants(functions),
 		delimiters,
-		namedOperators: [
+		namedOperators: withLowercaseVariants([
 			...(deps.operators?.named?.binary ?? []),
 			...(deps.operators?.named?.other ?? []),
-		],
+		]),
 
 		// Pre-defined regular expressions.
 		escapes:
@@ -59,7 +60,7 @@ export const create = (
 					{
 						cases: {
 							"@sourceCommands": { token: "keyword.command.source.$0" },
-							"@processingCommands": { token: "keyword.command.processing.$0" },
+							"@processingCommandsOnlyUppercase": { token: "keyword.command.processing.$0" },
 							"@options": { token: "keyword.option.$0" },
 							"@literals": { token: "keyword.literal.$0" },
 							"@functions": { token: "identifier.function.$0" },
@@ -212,3 +213,14 @@ export const create = (
 		},
 	};
 };
+
+/**
+ * Given a list of strings, returns a new list with both the original and their lowercase versions (no duplicates).
+ */
+function withLowercaseVariants(list: string[]): string[] {
+  const set = new Set<string>(list);
+  for (const item of list) {
+    set.add(item.toLowerCase());
+  }
+  return Array.from(set);
+}
