@@ -15,7 +15,6 @@ export const processingCommands = [
 	"ENRICH",
 	"EVAL",
 	"FORK",
-	"FORK",
 	"FULL JOIN",
 	"GROK",
 	"INFO",
@@ -35,9 +34,10 @@ export const processingCommands = [
 	"RIGHT JOIN",
 	"RIGHT",
 	"RRF",
+	"SAMPLE",
 	"SORT",
 	"STATS",
-	"WHERE",
+	"WHERE"
 ];
 
 export const options = ["BY", "ON", "WITH", "METADATA", "WHERE"];
