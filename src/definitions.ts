@@ -15,7 +15,6 @@ export const processingCommands = [
 	"ENRICH",
 	"EVAL",
 	"FORK",
-	"FORK",
 	"FULL JOIN",
 	"GROK",
 	"INFO",
