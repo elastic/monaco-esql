@@ -38,6 +38,7 @@ export const processingCommands = [
 	"SORT",
 	"STATS",
 	"WHERE",
+	"SAMPLE"
 ];
 
 export const options = ["BY", "ON", "WITH", "METADATA", "WHERE"];
