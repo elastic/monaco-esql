@@ -34,10 +34,10 @@ export const processingCommands = [
 	"RIGHT JOIN",
 	"RIGHT",
 	"RRF",
+	"SAMPLE",
 	"SORT",
 	"STATS",
-	"WHERE",
-	"SAMPLE"
+	"WHERE"
 ];
 
 export const options = ["BY", "ON", "WITH", "METADATA", "WHERE"];
