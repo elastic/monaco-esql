@@ -24,6 +24,7 @@ monaco.languages.setMonarchTokensProvider('esql', monarchLanguage);
 Publish with `release-it` tool:
 
 ```
+yarn build
 npx release-it
 ```
 

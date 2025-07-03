@@ -56,7 +56,7 @@ export const create = (
 
 				// Keywords
 				[
-					/@?[a-zA-Z_$][\w$]*(?!\s*[\.\-:])/,
+					/@?[a-zA-Z_$][\w$]*(?![\.\-:])/,
 					{
 						cases: {
 							"@sourceCommands": { token: "keyword.command.source.$0" },
@@ -184,7 +184,7 @@ export const create = (
 
 			number: [
 				[/(@digits)[eE]([\-+]?(@digits))?/, "number.float"],
-				[/(@digits)\.(@digits)([eE][\-+]?(@digits))?/, "number.float"],
+				[/(@digits)?\.(@digits)([eE][\-+]?(@digits))?/, "number.float"],
 				[/(@digits)/, "number"],
 			],
 
