@@ -42,6 +42,7 @@ export const create = (
 			/\\(?:[abfnrtv\\"']|x[0-9A-Fa-f]{1,4}|u[0-9A-Fa-f]{4}|U[0-9A-Fa-f]{8})/,
 		digits: /\d+(_+\d+)*/,
 		symbols: /[=><!~:&|+\-*\/\^%\.,]+/,
+		columnIdentifier: /[a-zA-Z0-9_\*\-]+/,
 
 		brackets: [
 			{ open: "[", close: "]", token: "delimiter.square" },
@@ -149,6 +150,9 @@ export const create = (
 			expression: [
 				{ include: "@whitespace" },
 				{ include: "@literal" },
+
+				// Basic ES|QL columns (fields), e.g.: "field", "nested.field", etc.
+				[/(@columnIdentifier)(\.(@columnIdentifier))*/, "identifier.column"],
 
 				// Inline casts: 1.3::INTEGER
 				[/::\w+\b/, "type"],
