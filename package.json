@@ -1,6 +1,6 @@
 {
   "name": "@elastic/monaco-esql",
-  "version": "3.1.5",
+  "version": "3.1.6",
   "private": false,
   "publishConfig": {
     "access": "public"
