@@ -237,10 +237,10 @@
     "@types/tough-cookie" "^4.0.5"
     tough-cookie "^4.1.4"
 
-"@chromatic-com/storybook@3.2.5":
-  version "3.2.5"
-  resolved "https://registry.yarnpkg.com/@chromatic-com/storybook/-/storybook-3.2.5.tgz#77acfc44c156d92e0cd26d208f6c4dd39771126f"
-  integrity sha512-Y388ft6po5FmGKdkcqz3r2sW6aMF5DSBaatC0jvT5bI/Dh27RJw3gPTmXJcZVNjteNl6tpiP3qxZ9MswAk5luw==
+"@chromatic-com/storybook@3.2.7":
+  version "3.2.7"
+  resolved "https://registry.yarnpkg.com/@chromatic-com/storybook/-/storybook-3.2.7.tgz#e5b9b4015e42e34167e3215c4cc1f6358bff90b4"
+  integrity sha512-fCGhk4cd3VA8RNg55MZL5CScdHqljsQcL9g6Ss7YuobHpSo9yytEWNdgMd5QxAHSPBlLGFHjnSmliM3G/BeBqw==
   dependencies:
     chromatic "^11.15.0"
     filesize "^10.0.12"
