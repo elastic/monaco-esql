@@ -57,7 +57,7 @@ export const create = (
 
 				// Keywords
 				[
-					/@?[a-zA-Z_$][\w$]*(?![\.\-:])/,
+					/@?[a-zA-Z_$][\w$]*(?![\.\-:a-zA-Z_])/,
 					{
 						cases: {
 							"@sourceCommands": { token: "keyword.command.source.$0" },
