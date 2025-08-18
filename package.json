@@ -48,7 +48,7 @@
     "monaco-editor": "*"
   },
   "devDependencies": {
-    "@biomejs/biome": "2.1.4",
+    "@biomejs/biome": "2.2.0",
     "@chromatic-com/storybook": "3",
     "@monaco-editor/react": "4.7.0",
     "@storybook/addon-essentials": "^8.6.14",
