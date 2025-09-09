@@ -1,5 +1,5 @@
 import * as React from "react";
-import type { Meta, StoryObj } from "@storybook/react";
+import type { Meta, StoryObj } from "@storybook/react-vite";
 import Editor from "@monaco-editor/react";
 import example from "../../example.esql?raw";
 import { language } from "../monarch-shared";
