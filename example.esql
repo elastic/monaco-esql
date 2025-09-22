@@ -5,7 +5,7 @@
   /* This is a multiline
      comment */
   | SHOW INFO
-  | FORK (WHERE ?param.test = "asdf" | LIMIT 123) (LIMIT 123) (SAMPLE .01)
+  | FORK (WHERE ?param.test = "asdf" | LIMIT 123) (limit 123) (SAMPLE .01)
   | NEW_COMMAND "hello"
   | UNKNOWN_COMMAND
   | METRICS index_pattern, logs-* BY date, ip

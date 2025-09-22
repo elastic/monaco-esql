@@ -119,6 +119,10 @@ export const create = (
 					/\|/,
 					{ token: "delimiter.pipe", switchTo: "@beforeMnemonicWhitespace" },
 				],
+				[
+					/\(/,
+					{ token: "delimiter.parenthesis", switchTo: "@firstCommandNameInSubQuery" },
+				],
 			],
 
 			beforeMnemonicWhitespace: [
@@ -126,17 +130,31 @@ export const create = (
 				["", { token: "", switchTo: "@commandName" }],
 			],
 
-			// Matches *command name*, i.e. the mnemonic.
-			commandName: [
-				// First tries to match all known command names.
+			exactCommandName: [
 				[
-					sourceCommands.join("|"),
+					withLowercaseVariants(sourceCommands).join("|"),
 					{ token: "keyword.command.source.$0", switchTo: "@root" },
 				],
 				[
-					processingCommands.join("|"),
-					{ token: "keyword.command.processing.$0", switchTo: "@root" },
+					withLowercaseVariants(processingCommands).join("|"),
+					{ token: "keyword.command.processing.exact.$0", switchTo: "@root" },
 				],
+			],
+
+			firstCommandNameInSubQuery: [
+				{ include: "@whitespace" },
+
+				// Try to match an exact command name
+				{ include: "@exactCommandName" },
+
+				// If not matched, go to root
+				{ include: "@root" }
+			],
+
+			// Matches *command name*, i.e. the mnemonic.
+			commandName: [
+				// First tries to match all known command names.
+				{ include: "@exactCommandName" },
 
 				// If command name is not well known, just matches the first word.
 				[
