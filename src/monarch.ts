@@ -137,7 +137,7 @@ export const create = (
 				],
 				[
 					withLowercaseVariants(processingCommands).join("|"),
-					{ token: "keyword.command.processing.exact.$0", switchTo: "@root" },
+					{ token: "keyword.command.processing.$0", switchTo: "@root" },
 				],
 			],
 
