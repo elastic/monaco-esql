@@ -16,6 +16,7 @@ export const processingCommands = [
 	"EVAL",
 	"FORK",
 	"FULL JOIN",
+	"FUSE",
 	"GROK",
 	"INFO",
 	"INLINESTATS",
@@ -33,14 +34,13 @@ export const processingCommands = [
 	"RERANK",
 	"RIGHT JOIN",
 	"RIGHT",
-	"RRF",
 	"SAMPLE",
 	"SORT",
 	"STATS",
-	"WHERE"
+	"WHERE",
 ];
 
-export const options = ["BY", "ON", "WITH", "METADATA", "WHERE"];
+export const options = ["BY", "ON", "WITH", "METADATA", "WHERE", "SCORE", "KEY", "GROUP"];
 
 export const literals = ["TRUE", "FALSE", "NULL"];
 
