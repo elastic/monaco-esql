@@ -43,3 +43,4 @@
   | LEFT JOIN join_index ON TRUE
   | RIGHT JOIN join_index ON field1, field2, field3
   | LOOKUP JOIN join_index AS x ON x.foo = bar
+  | FUSE linear SCORE BY field1 KEY BY field2 GROUP BY field3 WITH {"normalizer": "minmax"}
