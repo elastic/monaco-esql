@@ -1,5 +1,8 @@
+SET foo = "bar"; // Cool setting!
+SET some_setting /* comment */ = 123;
+
 // This is a comment, not a "string"
- /*asdf*/  EXPLAIN [ FROM index, "this=that", <logs-{now/d}> ]
+/*asdf*/  EXPLAIN [ FROM index, "this=that", <logs-{now/d}> ]
   | FROM index, metrics:index, "another_index", """index""", metrics-metrics-metrics METADATA _id, _index
   | ROW num = 123, another_field = "value", arr.nested = [1, 2, 3], nested.`escaped`.??param = NULL
   /* This is a multiline
