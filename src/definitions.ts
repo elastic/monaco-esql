@@ -1,6 +1,4 @@
-export const headerCommands = [
-	"SET",
-];
+export const headerCommands = ["SET"];
 
 export const sourceCommands = [
 	"FROM",
@@ -44,7 +42,16 @@ export const processingCommands = [
 	"WHERE",
 ];
 
-export const options = ["BY", "ON", "WITH", "METADATA", "WHERE", "SCORE", "KEY", "GROUP"];
+export const options = [
+	"BY",
+	"ON",
+	"WITH",
+	"METADATA",
+	"WHERE",
+	"SCORE",
+	"KEY",
+	"GROUP",
+];
 
 export const literals = ["TRUE", "FALSE", "NULL"];
 

@@ -16,7 +16,9 @@ export const create = (
 		temporalUnits = [],
 	} = deps;
 
-	const timeUnits = withLowercaseVariants(temporalUnits.flat()).sort((a, b) => (a > b ? -1 : 1));
+	const timeUnits = withLowercaseVariants(temporalUnits.flat()).sort((a, b) =>
+		a > b ? -1 : 1,
+	);
 
 	return {
 		// Uncomment when developing.
@@ -64,7 +66,9 @@ export const create = (
 						cases: {
 							"@headerCommands": { token: "keyword.command.header.$0" },
 							"@sourceCommands": { token: "keyword.command.source.$0" },
-							"@processingCommandsOnlyUppercase": { token: "keyword.command.processing.$0" },
+							"@processingCommandsOnlyUppercase": {
+								token: "keyword.command.processing.$0",
+							},
 							"@options": { token: "keyword.option.$0" },
 							"@literals": { token: "keyword.literal.$0" },
 							"@functions": { token: "identifier.function.$0" },
@@ -124,7 +128,10 @@ export const create = (
 				],
 				[
 					/\(/,
-					{ token: "delimiter.parenthesis", switchTo: "@firstCommandNameInSubQuery" },
+					{
+						token: "delimiter.parenthesis",
+						switchTo: "@firstCommandNameInSubQuery",
+					},
 				],
 			],
 
@@ -155,7 +162,7 @@ export const create = (
 				{ include: "@exactCommandName" },
 
 				// If not matched, go to root
-				{ include: "@root" }
+				{ include: "@root" },
 			],
 
 			// Matches *command name*, i.e. the mnemonic.
@@ -247,9 +254,9 @@ export const create = (
  * Given a list of strings, returns a new list with both the original and their lowercase versions (no duplicates).
  */
 function withLowercaseVariants(list: string[]): string[] {
-  const set = new Set<string>(list);
-  for (const item of list) {
-    set.add(item.toLowerCase());
-  }
-  return Array.from(set);
+	const set = new Set<string>(list);
+	for (const item of list) {
+		set.add(item.toLowerCase());
+	}
+	return Array.from(set);
 }
