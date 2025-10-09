@@ -16,7 +16,9 @@ export const create = (
 		temporalUnits = [],
 	} = deps;
 
-	const timeUnits = withLowercaseVariants(temporalUnits.flat()).sort((a, b) => (a > b ? -1 : 1));
+	const timeUnits = withLowercaseVariants(temporalUnits.flat()).sort((a, b) =>
+		a > b ? -1 : 1,
+	);
 
 	return {
 		// Uncomment when developing.
@@ -43,8 +45,8 @@ export const create = (
 		escapes:
 			/\\(?:[abfnrtv\\"']|x[0-9A-Fa-f]{1,4}|u[0-9A-Fa-f]{4}|U[0-9A-Fa-f]{8})/,
 		digits: /\d+(_+\d+)*/,
-		symbols: /[=><!~:&|+\-*\/\^%\.,]+/,
-		columnIdentifier: /[a-zA-Z0-9_\*\-]+/,
+		symbols: /[=><!~:&|+\-*/^%.,]+/,
+		columnIdentifier: /[a-zA-Z0-9_*-]+/,
 
 		brackets: [
 			{ open: "[", close: "]", token: "delimiter.square" },
@@ -59,12 +61,14 @@ export const create = (
 
 				// Keywords
 				[
-					/@?[a-zA-Z_$][\w$]*(?![\.\-:a-zA-Z_0-9])/,
+					/@?[a-zA-Z_$][\w$]*(?![.\-:a-zA-Z_0-9])/,
 					{
 						cases: {
 							"@headerCommands": { token: "keyword.command.header.$0" },
 							"@sourceCommands": { token: "keyword.command.source.$0" },
-							"@processingCommandsOnlyUppercase": { token: "keyword.command.processing.$0" },
+							"@processingCommandsOnlyUppercase": {
+								token: "keyword.command.processing.$0",
+							},
 							"@options": { token: "keyword.option.$0" },
 							"@literals": { token: "keyword.literal.$0" },
 							"@functions": { token: "identifier.function.$0" },
@@ -101,15 +105,15 @@ export const create = (
 			],
 
 			comment: [
-				[/[^\/*]+/, "comment"],
+				[/[^/*]+/, "comment"],
 				[/\*\//, "comment", "@pop"],
-				[/[\/*]/, "comment"],
+				[/[/*]/, "comment"],
 			],
 
 			doc: [
-				[/[^\/*]+/, "comment.doc"],
+				[/[^/*]+/, "comment.doc"],
 				[/\*\//, "comment.doc", "@pop"],
-				[/[\/*]/, "comment.doc"],
+				[/[/*]/, "comment.doc"],
 			],
 
 			// ---------------------------------------------------------------- Commands
@@ -124,7 +128,10 @@ export const create = (
 				],
 				[
 					/\(/,
-					{ token: "delimiter.parenthesis", switchTo: "@firstCommandNameInSubQuery" },
+					{
+						token: "delimiter.parenthesis",
+						switchTo: "@firstCommandNameInSubQuery",
+					},
 				],
 			],
 
@@ -155,7 +162,7 @@ export const create = (
 				{ include: "@exactCommandName" },
 
 				// If not matched, go to root
-				{ include: "@root" }
+				{ include: "@root" },
 			],
 
 			// Matches *command name*, i.e. the mnemonic.
@@ -212,8 +219,8 @@ export const create = (
 			timeInterval: [[`(@digits)\\s*(${timeUnits.join("|")})`, "number.time"]],
 
 			number: [
-				[/(@digits)[eE]([\-+]?(@digits))?/, "number.float"],
-				[/(@digits)?\.(@digits)([eE][\-+]?(@digits))?/, "number.float"],
+				[/(@digits)[eE]([-+]?(@digits))?/, "number.float"],
+				[/(@digits)?\.(@digits)([eE][-+]?(@digits))?/, "number.float"],
 				[/(@digits)/, "number"],
 			],
 
@@ -247,9 +254,9 @@ export const create = (
  * Given a list of strings, returns a new list with both the original and their lowercase versions (no duplicates).
  */
 function withLowercaseVariants(list: string[]): string[] {
-  const set = new Set<string>(list);
-  for (const item of list) {
-    set.add(item.toLowerCase());
-  }
-  return Array.from(set);
+	const set = new Set<string>(list);
+	for (const item of list) {
+		set.add(item.toLowerCase());
+	}
+	return Array.from(set);
 }
