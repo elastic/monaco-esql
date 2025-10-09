@@ -15,7 +15,7 @@
     "format": "biome format ./src",
     "format:fix": "biome format --write ./src",
     "lint": "biome lint ./src",
-    "lint:fix": "biome lint --apply ./src",
+    "lint:fix": "biome lint --write ./src",
     "test": "echo \"no tests...\"",
     "clean": "npx rimraf@5.0.5 lib",
     "build:es2020": "tsc --project tsconfig.build.json --module commonjs --target es2020 --outDir lib",

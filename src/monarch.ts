@@ -43,8 +43,8 @@ export const create = (
 		escapes:
 			/\\(?:[abfnrtv\\"']|x[0-9A-Fa-f]{1,4}|u[0-9A-Fa-f]{4}|U[0-9A-Fa-f]{8})/,
 		digits: /\d+(_+\d+)*/,
-		symbols: /[=><!~:&|+\-*\/\^%\.,]+/,
-		columnIdentifier: /[a-zA-Z0-9_\*\-]+/,
+		symbols: /[=><!~:&|+\-*/^%.,]+/,
+		columnIdentifier: /[a-zA-Z0-9_*-]+/,
 
 		brackets: [
 			{ open: "[", close: "]", token: "delimiter.square" },
@@ -59,7 +59,7 @@ export const create = (
 
 				// Keywords
 				[
-					/@?[a-zA-Z_$][\w$]*(?![\.\-:a-zA-Z_0-9])/,
+					/@?[a-zA-Z_$][\w$]*(?![.\-:a-zA-Z_0-9])/,
 					{
 						cases: {
 							"@headerCommands": { token: "keyword.command.header.$0" },
@@ -101,15 +101,15 @@ export const create = (
 			],
 
 			comment: [
-				[/[^\/*]+/, "comment"],
+				[/[^/*]+/, "comment"],
 				[/\*\//, "comment", "@pop"],
-				[/[\/*]/, "comment"],
+				[/[/*]/, "comment"],
 			],
 
 			doc: [
-				[/[^\/*]+/, "comment.doc"],
+				[/[^/*]+/, "comment.doc"],
 				[/\*\//, "comment.doc", "@pop"],
-				[/[\/*]/, "comment.doc"],
+				[/[/*]/, "comment.doc"],
 			],
 
 			// ---------------------------------------------------------------- Commands
@@ -212,8 +212,8 @@ export const create = (
 			timeInterval: [[`(@digits)\\s*(${timeUnits.join("|")})`, "number.time"]],
 
 			number: [
-				[/(@digits)[eE]([\-+]?(@digits))?/, "number.float"],
-				[/(@digits)?\.(@digits)([eE][\-+]?(@digits))?/, "number.float"],
+				[/(@digits)[eE]([-+]?(@digits))?/, "number.float"],
+				[/(@digits)?\.(@digits)([eE][-+]?(@digits))?/, "number.float"],
 				[/(@digits)/, "number"],
 			],
 
