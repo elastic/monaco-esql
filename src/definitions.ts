@@ -1,3 +1,7 @@
+export const headerCommands = [
+	"SET",
+];
+
 export const sourceCommands = [
 	"FROM",
 	"ROW",

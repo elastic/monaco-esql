@@ -6,6 +6,7 @@ export const create = (
 	deps: CreateDependencies = {},
 ): languages.IMonarchLanguage => {
 	const {
+		headerCommands = [],
 		sourceCommands = [],
 		processingCommands = [],
 		options = [],
@@ -25,6 +26,7 @@ export const create = (
 		ignoreCase: false,
 
 		// Lists of known language keywords and built-ins.
+		headerCommands: withLowercaseVariants(headerCommands),
 		sourceCommands: withLowercaseVariants(sourceCommands),
 		processingCommands: withLowercaseVariants(processingCommands),
 		processingCommandsOnlyUppercase: processingCommands,
@@ -60,6 +62,7 @@ export const create = (
 					/@?[a-zA-Z_$][\w$]*(?![\.\-:a-zA-Z_0-9])/,
 					{
 						cases: {
+							"@headerCommands": { token: "keyword.command.header.$0" },
 							"@sourceCommands": { token: "keyword.command.source.$0" },
 							"@processingCommandsOnlyUppercase": { token: "keyword.command.processing.$0" },
 							"@options": { token: "keyword.option.$0" },
@@ -131,6 +134,10 @@ export const create = (
 			],
 
 			exactCommandName: [
+				[
+					withLowercaseVariants(headerCommands).join("|"),
+					{ token: "keyword.command.header.$0", switchTo: "@root" },
+				],
 				[
 					withLowercaseVariants(sourceCommands).join("|"),
 					{ token: "keyword.command.source.$0", switchTo: "@root" },
