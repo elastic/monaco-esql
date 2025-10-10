@@ -22,7 +22,7 @@
     "build": "yarn build:es2020",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
-    "release": "release-it --ci"
+    "release": "npx release-it --ci"
   },
   "license": "MIT",
   "repository": {
