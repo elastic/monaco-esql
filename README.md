@@ -19,12 +19,8 @@ monaco.languages.setMonarchTokensProvider("esql", monarchLanguage);
 
 ## Releasing
 
-Publish with `release-it` tool:
-
-```
-yarn build
-npx release-it
-```
+To release a new version add a `publish` label to the PR.
+Or you can run the `Release` Github action manually from Github web.
 
 ## License
 
