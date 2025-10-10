@@ -1,7 +1,9 @@
 name: Release
 
 on:
-  pull_request: # temp for testing
+  pull_request:
+    types: [closed]
+    branches: [main]
   workflow_dispatch:
 
 permissions:
@@ -12,6 +14,14 @@ permissions:
 jobs:
   release:
     runs-on: ubuntu-latest
+    # Only run if:
+    # 1. Manually triggered via workflow_dispatch, OR
+    # 2. PR was merged and contains publish label
+    if: |
+      github.event_name == 'workflow_dispatch' || (
+        github.event.pull_request.merged == true && 
+        contains(github.event.pull_request.labels.*.name, 'publish')
+      )
     steps:
       - name: Checkout
         uses: actions/checkout@v4
