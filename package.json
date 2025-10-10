@@ -1,9 +1,10 @@
 {
   "name": "@elastic/monaco-esql",
-  "version": "3.1.8",
+  "version": "3.1.10",
   "private": false,
   "publishConfig": {
-    "access": "public"
+    "access": "public",
+    "registry": "https://registry.npmjs.org"
   },
   "description": "Monaco editor Monarch language syntax definitions for ES|QL",
   "main": "lib/index.js",
@@ -21,12 +22,13 @@
     "build:es2020": "tsc --project tsconfig.build.json --module commonjs --target es2020 --outDir lib",
     "build": "yarn build:es2020",
     "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build"
+    "build-storybook": "storybook build",
+    "release": "npx release-it --ci"
   },
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/elastic/highlightjs-esql.git"
+    "url": "git+https://github.com/elastic/monaco-esql.git"
   },
   "keywords": [
     "esql",
@@ -51,7 +53,9 @@
     "@biomejs/biome": "2.2.4",
     "@chromatic-com/storybook": "4.1.1",
     "@monaco-editor/react": "4.7.0",
+    "@storybook/addon-docs": "9.1.10",
     "@storybook/addon-onboarding": "9.1.10",
+    "@storybook/addon-vitest": "9.1.10",
     "@storybook/react-vite": "9.1.10",
     "@types/react": "19.1.13",
     "@vitest/browser": "3.2.4",
@@ -62,8 +66,6 @@
     "react-dom": "19.1.1",
     "storybook": "9.1.10",
     "typescript": "5.9.2",
-    "vitest": "3.2.4",
-    "@storybook/addon-vitest": "9.1.10",
-    "@storybook/addon-docs": "9.1.10"
+    "vitest": "3.2.4"
   }
 }
