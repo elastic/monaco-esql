@@ -27,7 +27,7 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/elastic/monaco-esql.git"
+    "url": "git+https://github.com/elastic/monaco-esql.git"
   },
   "keywords": [
     "esql",
