@@ -61,7 +61,7 @@
     "@vitest/browser": "3.2.4",
     "@vitest/coverage-v8": "3.2.4",
     "monaco-editor": "0.53.0",
-    "playwright": "1.55.1",
+    "playwright": "1.56.0",
     "react": "19.1.1",
     "react-dom": "19.1.1",
     "storybook": "9.1.10",
