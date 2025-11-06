@@ -59,6 +59,7 @@
     "@storybook/react-vite": "9.1.16",
     "@types/react": "19.2.2",
     "@vitest/browser": "4.0.1",
+    "@vitest/browser-playwright": "4.0.1",
     "@vitest/coverage-v8": "4.0.1",
     "monaco-editor": "0.54.0",
     "playwright": "1.56.1",

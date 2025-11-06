@@ -2,6 +2,7 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 import { defineConfig } from 'vitest/config';
+import { playwright } from '@vitest/browser-playwright';
 
 import { storybookTest } from '@storybook/addon-vitest/vitest-plugin';
 
@@ -11,7 +12,7 @@ const dirname =
 // More info at: https://storybook.js.org/docs/writing-tests/test-addon
 export default defineConfig({
   test: {
-    workspace: [
+    projects: [
       {
         extends: true,
         plugins: [
@@ -24,8 +25,12 @@ export default defineConfig({
           browser: {
         enabled: true,
         headless: true,
-        name: 'chromium',
-        provider: 'playwright'
+        provider: playwright(),
+        instances: [
+          {
+            browser: 'chromium'
+          }
+        ]
       },
           setupFiles: ['.storybook/vitest.setup.ts'],
         },

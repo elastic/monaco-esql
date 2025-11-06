@@ -798,6 +798,15 @@
   resolved "https://registry.yarnpkg.com/@types/resolve/-/resolve-1.20.6.tgz#e6e60dad29c2c8c206c026e6dd8d6d1bdda850b8"
   integrity sha512-A4STmOXPhMUtHH+S6ymgE2GiBSMqf4oTvcQZMcHzokuTLVYzXTB8ttjcgxOVaAp2lGwEdzZ0J+cRbbeevQj1UQ==
 
+"@vitest/browser-playwright@4.0.1":
+  version "4.0.1"
+  resolved "https://registry.yarnpkg.com/@vitest/browser-playwright/-/browser-playwright-4.0.1.tgz#19e1703994624719c416e00de27809db121d36cc"
+  integrity sha512-hp1z7yfubB6saK0NCUiRUjvVWoomCeUIUcnvdzr8tRTe6NjFjgeJqc6bt+iG59OqcIx+acneR+OJuB3P8ajiFg==
+  dependencies:
+    "@vitest/browser" "4.0.1"
+    "@vitest/mocker" "4.0.1"
+    tinyrainbow "^3.0.3"
+
 "@vitest/browser@4.0.1":
   version "4.0.1"
   resolved "https://registry.yarnpkg.com/@vitest/browser/-/browser-4.0.1.tgz#0c5fe6c7d7d60ef9e4b69476f727ac7efafdbacb"
