@@ -250,10 +250,10 @@
   resolved "https://registry.yarnpkg.com/@biomejs/cli-win32-x64/-/cli-win32-x64-2.3.4.tgz#2133a83e4ee05a7f14a29ea7420caece8c828198"
   integrity sha512-FGCijXecmC4IedQ0esdYNlMpx0Jxgf4zceCaMu6fkjWyjgn50ZQtMiqZZQ0Q/77yqPxvtkgZAvt5uGw0gAAjig==
 
-"@chromatic-com/storybook@4.1.1":
-  version "4.1.1"
-  resolved "https://registry.yarnpkg.com/@chromatic-com/storybook/-/storybook-4.1.1.tgz#6d67bb64380655887ece1d54561b6f056a3bb513"
-  integrity sha512-+Ib4cHtEjKl/Do+4LyU0U1FhLPbIU2Q/zgbOKHBCV+dTC4T3/vGzPqiGsgkdnZyTsK/zXg96LMPSPC4jjOiapg==
+"@chromatic-com/storybook@4.1.2":
+  version "4.1.2"
+  resolved "https://registry.yarnpkg.com/@chromatic-com/storybook/-/storybook-4.1.2.tgz#d9e6d5a552e125f40c78ac494706f0bd5c2147a2"
+  integrity sha512-QAWGtHwib0qsP5CcO64aJCF75zpFgpKK3jNpxILzQiPK3sVo4EmnVGJVdwcZWpWrGdH8E4YkncGoitw4EXzKMg==
   dependencies:
     "@neoconfetti/react" "^1.0.0"
     chromatic "^12.0.0"
