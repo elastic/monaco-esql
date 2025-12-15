@@ -20,7 +20,6 @@ monaco.languages.setMonarchTokensProvider("esql", monarchLanguage);
 ## Releasing
 
 To release a new version add a `publish` label to the PR.
-Or you can run the `Release` Github action manually from Github web.
 
 There is no need to bump the version manually, release-it does it automatically.
 
