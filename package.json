@@ -58,15 +58,15 @@
     "@storybook/addon-vitest": "10.1.9",
     "@storybook/react-vite": "10.1.9",
     "@types/react": "19.2.7",
-    "@vitest/browser": "4.0.15",
-    "@vitest/browser-playwright": "4.0.15",
-    "@vitest/coverage-v8": "4.0.15",
+    "@vitest/browser": "4.0.16",
+    "@vitest/browser-playwright": "4.0.16",
+    "@vitest/coverage-v8": "4.0.16",
     "monaco-editor": "0.55.1",
     "playwright": "1.57.0",
     "react": "19.2.0",
     "react-dom": "19.2.0",
     "storybook": "10.1.9",
     "typescript": "5.9.3",
-    "vitest": "4.0.15"
+    "vitest": "4.0.16"
   }
 }
