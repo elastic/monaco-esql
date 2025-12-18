@@ -63,8 +63,8 @@
     "@vitest/coverage-v8": "4.0.16",
     "monaco-editor": "0.55.1",
     "playwright": "1.57.0",
-    "react": "19.2.1",
-    "react-dom": "19.2.1",
+    "react": "19.2.3",
+    "react-dom": "19.2.3",
     "storybook": "10.1.9",
     "typescript": "5.9.3",
     "vitest": "4.0.16"
