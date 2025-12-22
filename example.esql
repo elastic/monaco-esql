@@ -35,6 +35,7 @@ SET some_setting /* comment */ = 123;
    * @color #0077ff
    */
   | DISSECT field """%{date} - %{msg} - %{ip}"""
+  | WHERE KQL("""log.level:"warning"""")
   | GROK dns.question.name "%{DATA}\\.%{GREEDYDATA:dns.question:string}"
   | ENRICH languages_policy ON a WITH name = language_name, more
   | MV_EXPAND column
