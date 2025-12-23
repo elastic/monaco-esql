@@ -234,8 +234,14 @@ export const create = (
 
 			// Triple double-quoted strings: """str"""
 			string_triple: [
+				// Needed to avoid poping on these cases: | WHERE KQL("""log.level:"warning""""),
+				//  without this it will pop on warning""", leaving ") as invalid tokens.
+				[/"(?=""")/, "string.triple"],
+				// End string_triple when """ is found
 				[/"""/, "string.triple", "@pop"],
+				// The following two rules match the string content, contemplating the apearance of isolated quotes.
 				[/[^"]+/, "string.triple"],
+				[/"/, "string.triple"],
 			],
 
 			// Backtick quoted "strings". ES|QL does not have back-tick "strings"
