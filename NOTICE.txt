@@ -1,0 +1,2 @@
+ES|QL grammar for Monarch
+Copyright 2012-2026 Elasticsearch B.V.
