@@ -9,21 +9,23 @@
   "description": "Monaco editor Monarch language syntax definitions for ES|QL",
   "main": "lib/index.js",
   "files": [
+    "NOTICE.txt",
     "LICENSE",
     "lib/"
   ],
   "scripts": {
     "format": "biome format ./src",
     "format:fix": "biome format --write ./src",
-    "lint": "biome lint ./src",
-    "lint:fix": "biome lint --write ./src",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
     "test": "echo \"no tests...\"",
     "clean": "npx rimraf@5.0.5 lib",
     "build:es2020": "tsc --project tsconfig.build.json --module commonjs --target es2020 --outDir lib",
     "build": "yarn build:es2020",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
-    "release": "npx release-it --ci"
+    "release": "npx release-it --ci",
+    "prepare": "husky"
   },
   "license": "MIT",
   "repository": {
@@ -50,8 +52,10 @@
     "monaco-editor": "*"
   },
   "devDependencies": {
+    "@babel/eslint-parser": "^7.28.5",
     "@biomejs/biome": "2.3.10",
     "@chromatic-com/storybook": "4.1.3",
+    "@eslint/js": "^9.39.2",
     "@monaco-editor/react": "4.7.0",
     "@storybook/addon-docs": "10.1.11",
     "@storybook/addon-onboarding": "10.1.11",
@@ -61,12 +65,23 @@
     "@vitest/browser": "4.0.16",
     "@vitest/browser-playwright": "4.0.16",
     "@vitest/coverage-v8": "4.0.16",
+    "eslint": "^9.39.2",
+    "eslint-plugin-react": "^7.37.5",
+    "globals": "^17.0.0",
+    "husky": "^9.1.7",
+    "lint-staged": "^16.2.7",
     "monaco-editor": "0.55.1",
     "playwright": "1.57.0",
     "react": "19.2.3",
     "react-dom": "19.2.3",
     "storybook": "10.1.11",
     "typescript": "5.9.3",
+    "typescript-eslint": "^8.52.0",
     "vitest": "4.0.16"
+  },
+  "lint-staged": {
+    "*.{js,ts,tsx,mjs}": [
+      "eslint --fix"
+    ]
   }
 }
