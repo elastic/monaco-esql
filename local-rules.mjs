@@ -68,15 +68,7 @@ export const requireLicenseHeader = {
         // ensure there is nothing before the comment
         const sourceBeforeNode = sourceCode
           .getText()
-          .slice(0, sourceCode.getIndexFromLoc(comment.loc.start)); // Verify getIndexFromLoc logic via docs or assumption: v9 sourceCode has it?
-        
-        // v9 sourceCode object is instance of SourceCode class which has getIndexFromLoc? 
-        // In FlatConfig with eslint v9, context.sourceCode is the way. 
-        // getIndexFromLoc is available on SourceCode. However older ESLint versions put it on sourceCode object.
-        // Let's assume it works or verify.
-        // Wait, context.sourceCode.getText() ? 
-        // context.sourceCode.getText() returns full text.
-        
+          .slice(0, sourceCode.getIndexFromLoc(comment.loc.start));
         if (sourceBeforeNode.length && !isHashbang(sourceBeforeNode)) {
           context.report({
             node: comment,
