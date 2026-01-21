@@ -70,7 +70,7 @@ export const create = (
 				{ include: "@restOfQuery" },
 			],
 
-			// This block matches the first command in the query, and identifies it as a source command.
+			// This block matches the first command name in the query, and identifies it as a source command.
 			// Except if it's a header command.
 			// This is useful to color querys that starts with "From" instead of "FROM".
 			firstCommandName : [
