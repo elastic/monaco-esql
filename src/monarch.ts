@@ -113,6 +113,14 @@ export const create = (
 				],
 
 				{ include: "@expression" },
+
+				// If we found a semicolon, means a header command finished.
+				// We go back to root to parse the query.
+				[
+					/;/,
+					{ token: "delimiter", switchTo: "@root" },
+				],
+
 				{ include: "@processingCommand" },
 
 				[/\[|\(|\)|\]/, "@brackets"],
@@ -165,7 +173,7 @@ export const create = (
 						token: "delimiter.parenthesis",
 						switchTo: "@firstCommandNameInSubQuery",
 					},
-				],
+				]
 			],
 
 			beforeMnemonicWhitespace: [
