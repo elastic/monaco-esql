@@ -65,15 +65,12 @@ export const create = (
 		],
 
 		tokenizer: {
-			root: [
-				{ include: '@firstCommandName' },
-				{ include: "@restOfQuery" },
-			],
+			root: [{ include: "@firstCommandName" }, { include: "@restOfQuery" }],
 
 			// This block matches the first command name in the query, and identifies it as a source command.
 			// Except if it's a header command.
 			// This is useful to color querys that starts with "From" instead of "FROM".
-			firstCommandName : [
+			firstCommandName: [
 				{ include: "@whitespace" },
 				[
 					/[a-zA-Z]+/,
@@ -116,10 +113,7 @@ export const create = (
 
 				// If we found a semicolon, means a header command finished.
 				// We go back to root to parse the query.
-				[
-					/;/,
-					{ token: "delimiter", switchTo: "@root" },
-				],
+				[/;/, { token: "delimiter", switchTo: "@root" }],
 
 				{ include: "@processingCommand" },
 
@@ -173,7 +167,7 @@ export const create = (
 						token: "delimiter.parenthesis",
 						switchTo: "@firstCommandNameInSubQuery",
 					},
-				]
+				],
 			],
 
 			beforeMnemonicWhitespace: [
