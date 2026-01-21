@@ -13,10 +13,10 @@ export const sourceCommands = [
 	"FROM",
 	"ROW",
 	"EXPLAIN",
-	"PROMQL",
 	"SHOW INFO",
 	"SHOW",
 	"TS",
+	"PROMQL",
 ];
 
 export const processingCommands = [
