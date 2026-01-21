@@ -16,7 +16,7 @@ export const sourceCommands = [
 	"SHOW INFO",
 	"SHOW",
 	"TS",
-    "PROMQL",
+	"PROMQL",
 ];
 
 export const processingCommands = [
