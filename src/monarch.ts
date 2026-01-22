@@ -65,7 +65,28 @@ export const create = (
 		],
 
 		tokenizer: {
-			root: [
+			root: [{ include: "@firstCommandName" }, { include: "@restOfQuery" }],
+
+			// This block matches the first command name in the query, and identifies it as a source command.
+			// Except if it's a header command.
+			// This is useful to color querys that starts with "From" instead of "FROM".
+			firstCommandName: [
+				{ include: "@whitespace" },
+				[
+					/[a-zA-Z]+/,
+					{
+						cases: {
+							"@headerCommands": { token: "keyword.command.header.$0" },
+							"@default": {
+								token: "keyword.command.source.$0",
+								switchTo: "@restOfQuery",
+							},
+						},
+					},
+				],
+			],
+
+			restOfQuery: [
 				{ include: "@whitespace" },
 
 				// Keywords
@@ -89,6 +110,11 @@ export const create = (
 				],
 
 				{ include: "@expression" },
+
+				// If we found a semicolon, means a header command finished.
+				// We go back to root to parse the query.
+				[/;/, { token: "delimiter", switchTo: "@root" }],
+
 				{ include: "@processingCommand" },
 
 				[/\[|\(|\)|\]/, "@brackets"],
@@ -152,15 +178,15 @@ export const create = (
 			exactCommandName: [
 				[
 					withLowercaseVariants(headerCommands).join("|"),
-					{ token: "keyword.command.header.$0", switchTo: "@root" },
+					{ token: "keyword.command.header.$0", switchTo: "@restOfQuery" },
 				],
 				[
 					withLowercaseVariants(sourceCommands).join("|"),
-					{ token: "keyword.command.source.$0", switchTo: "@root" },
+					{ token: "keyword.command.source.$0", switchTo: "@restOfQuery" },
 				],
 				[
 					withLowercaseVariants(processingCommands).join("|"),
-					{ token: "keyword.command.processing.$0", switchTo: "@root" },
+					{ token: "keyword.command.processing.$0", switchTo: "@restOfQuery" },
 				],
 			],
 
@@ -170,8 +196,8 @@ export const create = (
 				// Try to match an exact command name
 				{ include: "@exactCommandName" },
 
-				// If not matched, go to root
-				{ include: "@root" },
+				// If not matched, go to restOfQuery
+				{ include: "@restOfQuery" },
 			],
 
 			// Matches *command name*, i.e. the mnemonic.
@@ -182,7 +208,7 @@ export const create = (
 				// If command name is not well known, just matches the first word.
 				[
 					/\w+\b/,
-					{ token: "keyword.command.processing.$0", switchTo: "@root" },
+					{ token: "keyword.command.processing.$0", switchTo: "@restOfQuery" },
 				],
 			],
 
