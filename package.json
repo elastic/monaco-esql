@@ -76,7 +76,7 @@
     "react-dom": "19.2.3",
     "storybook": "10.1.11",
     "typescript": "5.9.3",
-    "typescript-eslint": "8.53.0",
+    "typescript-eslint": "8.54.0",
     "vitest": "4.0.18"
   },
   "lint-staged": {
