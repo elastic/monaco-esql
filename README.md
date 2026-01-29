@@ -19,9 +19,7 @@ monaco.languages.setMonarchTokensProvider("esql", monarchLanguage);
 
 ## Releasing
 
-To release a new version add a `publish` label to the PR.
-
-There is no need to bump the version manually, release-it does it automatically.
+To release a new version, bump the `version` field in the `package.json` and add a `publish` label to the PR.
 
 ## License
 
