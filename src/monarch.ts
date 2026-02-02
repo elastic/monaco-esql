@@ -8,6 +8,7 @@
  */
 
 import type { languages } from "monaco-editor";
+import { promQLBlock, promQLOverrideRules } from "./promql";
 
 export type CreateDependencies = Partial<typeof import("./definitions")>;
 
@@ -301,24 +302,8 @@ export const create = (
 			],
 
 			// ------------------------------------------------------------- PromQL
-			// In here we define any execptional handling we might need for embedded PromQL.
-			// For now, the only excpetion is the comments handling.
-			promqlBlock: [
-				
-				[/\/\*\*(?!\/)/, "comment.doc", "@doc"],
-				[/\/\*/, "comment", "@comment"],
-				[/\/\/.*$/, "comment"],
-
-				// Only match the exit condition. The content is highlighted by the embedded language.
-				[	
-					/\|/,
-					{
-						token: "delimiter.pipe",
-						switchTo: "@beforeMnemonicWhitespace",
-						nextEmbedded: "@pop",
-					},
-				],
-			],
+			promqlBlock: promQLBlock,
+			...promQLOverrideRules,
 		},
 	};
 };
