@@ -1,6 +1,9 @@
 SET foo = "bar"; // Cool setting!
 SET some_setting /* comment */ = 123;
 
+PROMQL /* some comment*/ index=metrics-* step="5m"  //other comment
+  col0=(sum(bytes) by host)
+
 // This is a comment, not a "string"
 /*asdf*/  EXPLAIN [ FROM index, "this=that", <logs-{now/d}> ]
   | FROM index, metrics:index, "another_index", """index""", metrics-metrics-metrics METADATA _id, _index

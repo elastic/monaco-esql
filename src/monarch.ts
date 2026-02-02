@@ -29,6 +29,8 @@ export const create = (
 		a > b ? -1 : 1,
 	);
 
+	const promQLCommand = ["PROMQL"];
+
 	return {
 		// Uncomment when developing.
 		// defaultToken: "invalid",
@@ -41,6 +43,7 @@ export const create = (
 		sourceCommands: withLowercaseVariants(sourceCommands),
 		processingCommands: withLowercaseVariants(processingCommands),
 		processingCommandsOnlyUppercase: processingCommands,
+		promQLCommand: withLowercaseVariants(promQLCommand),
 		options: withLowercaseVariants(options),
 		literals: withLowercaseVariants(literals),
 		functions: withLowercaseVariants(functions),
@@ -76,6 +79,11 @@ export const create = (
 					/[a-zA-Z]+/,
 					{
 						cases: {
+							"@promQLCommand": {
+								token: "keyword.command.source.promql",
+								switchTo: "@promqlBlock",
+								nextEmbedded: 'promql'
+							},
 							"@headerCommands": { token: "keyword.command.header.$0" },
 							"@default": {
 								token: "keyword.command.source.$0",
@@ -176,6 +184,10 @@ export const create = (
 			],
 
 			exactCommandName: [
+				[
+					withLowercaseVariants(promQLCommand).join("|"),
+					{ token: "keyword.command.source.promql", switchTo: "@promqlBlock", nextEmbedded: 'promql' },
+				],
 				[
 					withLowercaseVariants(headerCommands).join("|"),
 					{ token: "keyword.command.header.$0", switchTo: "@restOfQuery" },
@@ -286,6 +298,26 @@ export const create = (
 				[/@escapes/, "string.escape"],
 				[/\\./, "string.escape.invalid"],
 				[/`/, "string", "@pop"],
+			],
+
+			// ------------------------------------------------------------- PromQL
+			// In here we define any execptional handling we might need for embedded PromQL.
+			// For now, the only excpetion is the comments handling.
+			promqlBlock: [
+				
+				[/\/\*\*(?!\/)/, "comment.doc", "@doc"],
+				[/\/\*/, "comment", "@comment"],
+				[/\/\/.*$/, "comment"],
+
+				// Only match the exit condition. The content is highlighted by the embedded language.
+				[	
+					/\|/,
+					{
+						token: "delimiter.pipe",
+						switchTo: "@beforeMnemonicWhitespace",
+						nextEmbedded: "@pop",
+					},
+				],
 			],
 		},
 	};
