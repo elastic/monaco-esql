@@ -12,21 +12,18 @@ import type { languages } from "monaco-editor";
  * In order to handle the PROMQL command we need to solve two problems:
  * 1. Detect when the params section ends and the query starts, so we can apply the promql query embedding.
  *    For this we tokenize the params section with dedicated states, before delegating to the promql query embedding.
- * 
- * 2. We need to correctly tokenize ES|QL comments syntax withing a promql query.	
+ *
+ * 2. We need to correctly tokenize ES|QL comments syntax withing a promql query.
  *    For this we use the promQLQuery state, which is applied while tokenizing the query content.
  *    It will tell the embedded language when the query ends (when a pipe is found).
  *    And will switch to dedicated states for handling comments.
-*/
+ */
 
 /** Main state for PROMQL command. */
 export const promQLCommand: languages.IMonarchLanguageRule[] = [
 	{ include: "@whitespace" },
 	// Match param pattern: paramName = ...
-	[
-		/[a-zA-Z0-9_*?"`-]+\s*=\s*/,
-		{ token: "@rematch", next: "@promqlParam" },
-	],
+	[/[a-zA-Z0-9_*?"`-]+\s*=\s*/, { token: "@rematch", next: "@promqlParam" }],
 	// Start PromQL query embedding (no more params)
 	[
 		/.+/,
@@ -51,8 +48,8 @@ export const promqlParam: languages.IMonarchLanguageRule[] = [
  */
 export const promqlParamValue: languages.IMonarchLanguageRule[] = [
 	// Whitespace handling: comma continues list, otherwise pop
-	[/\s+(?=,)/, ""],  // Whitespace before comma - continue
-	[/\s+/, { token: "", next: "@pop" }],  // Whitespace not before comma - pop (query or next param)
+	[/\s+(?=,)/, ""], // Whitespace before comma - continue
+	[/\s+/, { token: "", next: "@pop" }], // Whitespace not before comma - pop (query or next param)
 
 	// Match value content
 	{ include: "@expression" },
@@ -71,7 +68,7 @@ export const promqlParamValue: languages.IMonarchLanguageRule[] = [
  * And to be able to tokenize ES|QL comments within the PROMQL query.
  */
 export const promQLQuery: languages.IMonarchLanguageRule[] = [
-    // Rules to delegate comments to ES|QL	
+	// Rules to delegate comments to ES|QL
 	[
 		/\/\*\*(?!\/)/,
 		{
@@ -80,10 +77,7 @@ export const promQLQuery: languages.IMonarchLanguageRule[] = [
 			nextEmbedded: "@pop",
 		},
 	],
-	[
-		/\/\*/,
-		{ token: "comment", next: "@promqlComment", nextEmbedded: "@pop" },
-	],
+	[/\/\*/, { token: "comment", next: "@promqlComment", nextEmbedded: "@pop" }],
 	[
 		/\/\//,
 		{
@@ -93,7 +87,7 @@ export const promQLQuery: languages.IMonarchLanguageRule[] = [
 		},
 	],
 	// Exit condition
-	[	
+	[
 		/\|/,
 		{
 			token: "delimiter.pipe",
@@ -106,13 +100,12 @@ export const promQLQuery: languages.IMonarchLanguageRule[] = [
 /**
  * These states are used for returning the control the promql embedding after a comment ends.
  */
-const promQLQueryOverrideRules: { [name: string]: languages.IMonarchLanguageRule[] } = {
-    promqlDocComment: [
+const promQLQueryOverrideRules: {
+	[name: string]: languages.IMonarchLanguageRule[];
+} = {
+	promqlDocComment: [
 		[/[^/*]+/, "comment.doc"],
-		[
-		    /\*\//,
-			{ token: "comment.doc", next: "@pop", nextEmbedded: "promql" },
-		],
+		[/\*\//, { token: "comment.doc", next: "@pop", nextEmbedded: "promql" }],
 		[/[/*]/, "comment.doc"],
 	],
 
@@ -123,17 +116,16 @@ const promQLQueryOverrideRules: { [name: string]: languages.IMonarchLanguageRule
 	],
 
 	promqlLineComment: [
-		[
-			/.*$/,
-			{ token: "comment", next: "@pop", nextEmbedded: "promql" },
-		],
+		[/.*$/, { token: "comment", next: "@pop", nextEmbedded: "promql" }],
 	],
 };
 
 /**
  * All PromQL tokenizer states needed to tokenize a PROMQL command bundled in one object.
  */
-export const promQLStates: { [name: string]: languages.IMonarchLanguageRule[] } = {
+export const promQLStates: {
+	[name: string]: languages.IMonarchLanguageRule[];
+} = {
 	promQLCommand,
 	promqlParam,
 	promqlParamValue,

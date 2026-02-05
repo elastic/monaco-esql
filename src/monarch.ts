@@ -182,8 +182,11 @@ export const create = (
 
 			exactCommandName: [
 				[
-					'PROMQL|promql',
-					{ token: "keyword.command.source.promql", switchTo: "@promQLCommand" },
+					"PROMQL|promql",
+					{
+						token: "keyword.command.source.promql",
+						switchTo: "@promQLCommand",
+					},
 				],
 				[
 					withLowercaseVariants(headerCommands).join("|"),
