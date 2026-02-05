@@ -330,12 +330,9 @@ export const create = (
 				[/\s+(?=\()/, { token: "", next: "@pop" }],  // Query: (
 
 				// Reuse existing rules for value content
-				{ include: "@literal" },  // Handles ?params, numbers, time intervals
-				[/"/, "string", "@string"],  // Double-quoted strings
-				[/`/, "string", "@column_escape_part"],  // Backtick identifiers
-				[/[a-zA-Z_*][a-zA-Z_0-9*:-]*/, "identifier"],  // Identifiers (index patterns)
-				[/\s*,\s*/, "delimiter"],  // Comma (continues list)
-				[/\s+/, ""],  // Whitespace within value
+				{ include: "@expression" },
+
+				[/\s*,\s*/, "delimiter.comma"],  // Comma (continues list)
 
 				// End conditions
 				[/$/, { token: "", next: "@pop" }],

@@ -14,6 +14,12 @@ PROMQL (sum(bytes) by host)
 | PROMQL index=metrics-*, index1,  index2  step=?param (sum(bytes) by host)
 | PROMQL index=metrics-*, index1,  index2  step=?param sum(bytes) by host
 | PROMQL index= metrics-* , "index1" , `index2`, ?asds  step=?param sum(bytes) by host
+| PROMQL 
+    index= metrics-* , "index1" , `index2`, ?asds // multi line
+    step = ?param // multi line
+    sum(bytes)  // multi line
+    by host
+| PROMQL index=metrics-*, index1,  index2  step=?param http_requests_total{status="200"}
 
 // This is a comment, not a "string"
 /*asdf*/  | EXPLAIN [ FROM index, "this=that", <logs-{now/d}> ]
