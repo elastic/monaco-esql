@@ -326,12 +326,13 @@ export const create = (
 
 			// State to parse param values
 			// The way of detecting a param value ended is by detecting whitespaces that are not followed by a comma.
+			// Example of a value that contains a list of indexes: index-*, `index`, index::selector, ?param, "index"
 			promqlParamValue: [
 				// Whitespace handling: comma continues list, otherwise pop
 				[/\s+(?=,)/, ""],  // Whitespace before comma - continue
 				[/\s+/, { token: "", next: "@pop" }],  // Whitespace not before comma - pop (query or next param)
 
-				// Value content
+				// Match value content
 				{ include: "@expression" },
 
 				// Comma continues the list
