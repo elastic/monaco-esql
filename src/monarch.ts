@@ -304,50 +304,84 @@ export const create = (
 			// ------------------------------------------------------------- PromQL
 			promqlBlock: [
 				{ include: "@whitespace" },
+				// Match param pattern: word = (with optional spaces around =)
 				[
-					// 5 groups: (name)(whitespaces)(=)(whitespaces)(value)
-					// Group 5 captures comma-separated values with flexible comma placement:
-					//   - Commas attached: metrics-*, index1, index2
-					//   - Commas separated: metrics-* , index1 , index2
-					//   - Single value: "5m" (no comma, doesn't continue)
-					// Two alternatives:
-					//   1. \S+, (first item has comma) → continue with space+item until no more commas
-					//   2. \S+ (no comma) → look for ", item" pattern (comma as separator)
-					/(\S+)(\s*)(=)(\s*)(\S+,(?:\s+\S+,)*(?:\s+(?![^=\s]+\s*=)\S+)?|\S+(?:\s*,\s*\S+)*)/,
-					[
-						// Group 1: param name
-						{
-							cases: {
-								"\".*\"": "string",
-								"`.*`": "string",
-								"\\?{1,9}([a-zA-Z_][a-zA-Z_0-9]*|[0-9]+)": "variable",
-								"@default": "identifier",
-							}
-						},
-						// Group 2: optional whitespaces before =
-						"",
-						// Group 3: assignment operator
-						"delimiter.assignment",
-						// Group 4: optional whitespaces after =
-						"",
-						// Group 5: param value
-						{
-							cases: {
-								"\\(.*\\)": { token: "@rematch", switchTo: "@embeddedPromQL", nextEmbedded: "promql", log: 'found $0 in state $S0 (go to embeddedPromQL case)' },
-								"\".*\"": "string",
-								"`.*`": "string",
-								"\\?{1,9}([a-zA-Z_][a-zA-Z_0-9]*|[0-9]+)": "variable",
-								//HD falta el index
-								"@default": "identifier"
-							}
-						}
-					]
+					/[^\s=]+\s*=\s*/,
+					{ token: "@rematch", next: "@promqlParam" },
 				],
-				// Fallback: start PromQL embedding
+				// Fallback: start PromQL embedding (no more params)
 				[
 					/.+/,
-					{ token: "@rematch", switchTo: "@embeddedPromQL", nextEmbedded: "promql", log: 'found $0 in state $S0 (go to embeddedPromQL)' },
+					{ token: "@rematch", switchTo: "@embeddedPromQL", nextEmbedded: "promql" },
 				],
+			],
+
+			// State to tokenize a single param (name=value), then pop back
+			promqlParam: [
+				// Param name: quoted string
+				[/"(?:[^"\\]|\\.)*"/, "string"],
+				// Param name: backtick identifier
+				[/`[^`]+`/, "string"],
+				// Param name: variable
+				[
+					/\?[a-zA-Z_0-9]*/,
+					{
+						cases: {
+							"\\?[a-zA-Z_][a-zA-Z_0-9]*": "variable.name.named",
+							"\\?[0-9]+": "variable.name.positional",
+							"@default": "variable.name.unnamed",
+						},
+					},
+				],
+				// Param name: identifier
+				[/[a-zA-Z_][a-zA-Z_0-9]*/, "identifier"],
+				// Whitespace before =
+				[/\s+/, ""],
+				// Assignment operator - switch to value state
+				[/=/, { token: "delimiter.assignment", switchTo: "@promqlParamValue" }],
+			],
+
+			// State to parse param values (handles comma-separated lists, strings, etc.)
+			promqlParamValue: [
+				// Pop conditions FIRST (before consuming whitespace)
+				// 1. Whitespace followed by word= (next param) - pop
+				[/\s+(?=[^\s=]+=)/, { token: "", next: "@pop" }],
+				// 2. Whitespace followed by identifier( (function call = query start) - pop
+				[/\s+(?=[a-zA-Z_][a-zA-Z_0-9]*\()/, { token: "", next: "@pop" }],
+				// 3. Whitespace followed by ( (query with parens) - pop
+				[/\s+(?=\()/, { token: "", next: "@pop" }],
+
+				// Whitespace before value content - consume and continue
+				// Before quotes, params, or identifiers (index patterns)
+				[/\s+(?=["'`?a-zA-Z_*])/, ""],
+				// Before comma
+				[/\s+(?=,)/, ""],
+				
+				// Double-quoted string values
+				[/"(?:[^"\\]|\\.)*"/, "string"],
+				// Backtick-quoted identifiers
+				[/`[^`]+`/, "string"],
+				// Named/positional params
+				[
+					/\?[a-zA-Z_0-9]*/,
+					{
+						cases: {
+							"\\?[a-zA-Z_][a-zA-Z_0-9]*": "variable.name.named",
+							"\\?[0-9]+": "variable.name.positional",
+							"@default": "variable.name.unnamed",
+						},
+					},
+				],
+				// Identifiers (index patterns with -, *, :)
+				[/[a-zA-Z_*][a-zA-Z_0-9*:-]*/, "identifier"],
+				// Comma with optional whitespace (continues the value list)
+				[/\s*,\s*/, "delimiter"],
+
+				// End of line - pop
+				[/$/, { token: "", next: "@pop" }],
+				
+				// Fallback: pop
+				["", { token: "", next: "@pop" }],
 			],
 
 			embeddedPromQL: promQLBlock,
