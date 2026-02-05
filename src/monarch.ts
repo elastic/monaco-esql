@@ -306,7 +306,14 @@ export const create = (
 				{ include: "@whitespace" },
 				[
 					// 5 groups: (name)(whitespaces)(=)(whitespaces)(value)
-					/(\S+)(\s*)(=)(\s*)(\S+)/,
+					// Group 5 captures comma-separated values with flexible comma placement:
+					//   - Commas attached: metrics-*, index1, index2
+					//   - Commas separated: metrics-* , index1 , index2
+					//   - Single value: "5m" (no comma, doesn't continue)
+					// Two alternatives:
+					//   1. \S+, (first item has comma) → continue with space+item until no more commas
+					//   2. \S+ (no comma) → look for ", item" pattern (comma as separator)
+					/(\S+)(\s*)(=)(\s*)(\S+,(?:\s+\S+,)*(?:\s+(?![^=\s]+\s*=)\S+)?|\S+(?:\s*,\s*\S+)*)/,
 					[
 						// Group 1: param name
 						{

@@ -7,10 +7,13 @@ PROMQL (sum(bytes) by host)
 | PROMQL index=metrics-* step="5m" (sum(bytes) by host)
 | PROMQL index=metrics-* step="5m" sum(bytes) by host
 | PROMQL "index"=metrics-* step="5m" sum(bytes) by host
-| PROMQL ?param=metrics-* step= ?param col0=sum(bytes) by host
+| PROMQL ?param=metrics-* step= ?param col0=(sum(bytes) by host)
 | PROMQL /* some comment*/ index=metrics-* step="5m"  //other comment
   col0=(sum(bytes) by host)
-| PROMQL index=metrics-*, index1,  index2  step=?param col0=sum(bytes) by host
+| PROMQL index=metrics-*, index1,  index2  step=?param col0=(sum(bytes) by host)
+| PROMQL index=metrics-*, index1,  index2  step=?param (sum(bytes) by host)
+| PROMQL index=metrics-*, index1,  index2  step=?param sum(bytes) by host
+| PROMQL index=metrics-* , index1 , index2  step=?param sum(bytes) by host
 
 // This is a comment, not a "string"
 /*asdf*/  | EXPLAIN [ FROM index, "this=that", <logs-{now/d}> ]
