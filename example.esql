@@ -1,27 +1,6 @@
 SET foo = "bar"; // Cool setting!
 SET some_setting /* comment */ = 123;
 
-PROMQL (sum(bytes) by host)
-| PROMQL sum(bytes) by host
-| PROMQL index=metrics-* step="5m" col0=(sum(bytes) by host)
-| PROMQL index=metrics-* step="5m" (sum(bytes) by host)
-| PROMQL index=metrics-* step="5m" sum(bytes) by host
-| PROMQL "index"=metrics-* step="5m" sum(bytes) by host
-| PROMQL `index`=metrics-* step="5m" sum(bytes) by host
-| PROMQL ?param=metrics-* step= ?param col0=(sum(bytes) by host)
-| PROMQL index=metrics-*, index1,  index2  step=?param col0=(sum(bytes) by host)
-| PROMQL index=metrics-*, index1,  index2  step=?param (sum(bytes) by host)
-| PROMQL index=metrics-*, index1,  index2  step=?param sum(bytes) by host
-| PROMQL index= metrics-* , "index1" , `index2`, ?index, ?22  step=?param sum(bytes) by host
-| PROMQL /* some comment*/ index=metrics-* step="5m"  //other comment
-  col0=(sum(bytes) by host)
-| PROMQL 
-    index= metrics-* , "index1" , `index2`, ?index // multi line
-    step = ?param // multi line
-    sum(bytes)  // multi line
-    by host
-| PROMQL index=metrics-*, index1,  index2  step=?param http_requests_total{status="200"}
-
 // This is a comment, not a "string"
 /*asdf*/  | EXPLAIN [ FROM index, "this=that", <logs-{now/d}> ]
   | FROM index, metrics:index, "another_index", """index""", metrics-metrics-metrics METADATA _id, _index
@@ -69,3 +48,25 @@ PROMQL (sum(bytes) by host)
   | RIGHT JOIN join_index ON field1, field2, field3
   | LOOKUP JOIN join_index AS x ON x.foo = bar
   | FUSE linear SCORE BY field1 KEY BY field2 GROUP BY field3 WITH {"normalizer": "minmax"}
+
+// PROMQL examples
+| PROMQL (sum(bytes) by host)
+| PROMQL sum(bytes) by host
+| PROMQL index=metrics-* step="5m" col0=(sum(bytes) by host)
+| PROMQL index=metrics-* step="5m" (sum(bytes) by host)
+| PROMQL index=metrics-* step="5m" sum(bytes) by host
+| PROMQL "index"=metrics-* step="5m" sum(bytes) by host
+| PROMQL `index`=metrics-* step="5m" sum(bytes) by host
+| PROMQL ?param=metrics-* step= ?param col0=(sum(bytes) by host)
+| PROMQL index=metrics-*, index1,  index2  step=?param col0=(sum(bytes) by host)
+| PROMQL index=metrics-*, index1,  index2  step=?param (sum(bytes) by host)
+| PROMQL index=metrics-*, index1,  index2  step=?param sum(bytes) by host
+| PROMQL index= metrics-* , "index1" , `index2`, ?index, ?22  step=?param sum(bytes) by host
+| PROMQL /* some comment*/ index=metrics-* step="5m"  //other comment
+  col0=(sum(bytes) by host)
+| PROMQL 
+    index= metrics-* , "index1" , `index2`, ?index // multi line
+    step = ?param // multi line
+    sum(bytes)  // multi line
+    by host
+| PROMQL index=metrics-*, index1,  index2  step=?param http_requests_total{status="200"}

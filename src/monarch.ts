@@ -8,7 +8,7 @@
  */
 
 import type { languages } from "monaco-editor";
-import { promQLQuery, promQLOverrideRules } from "./promql";
+import { promQLStates } from "./promql";
 
 export type CreateDependencies = Partial<typeof import("./definitions")>;
 
@@ -297,53 +297,8 @@ export const create = (
 				[/`/, "string", "@pop"],
 			],
 
-			// -------------------- PROMQL --------------------------------------------------------
-			// The aim of this state is to detect when the params section ends and the query starts.
-			// PROMQL <params>* <query>
-			// PROMQL <params>* (<query>)
-			// PROMQL <params>* col=(<query>)
-			promQLCommand: [
-				{ include: "@whitespace" },
-				// Match param pattern: paramName = ...
-				[
-					/[a-zA-Z0-9_*?"`-]+\s*=\s*/,
-					{ token: "@rematch", next: "@promqlParam" },
-				],
-				// Start PromQL query embedding (no more params)
-				[
-					/.+/,
-					{ token: "@rematch", switchTo: "@embeddedPromQL", nextEmbedded: "promql" },
-				],
-			],
-
-			// State to tokenize param name, then switch to value
-			promqlParam: [
-				// Match param name
-				{ include: "@expression" },
-				// Tokenize assignment (with optional trailing whitespace) and go to value
-				[/=\s*/, { token: "delimiter.assignment", switchTo: "@promqlParamValue" }],
-			],
-
-			// State to parse param values
-			// The way of detecting a param value ended is by detecting whitespaces that are not followed by a comma.
-			// Example of a value that contains a list of indexes: index-*, `index`, index::selector, ?param, "index"
-			promqlParamValue: [
-				// Whitespace handling: comma continues list, otherwise pop
-				[/\s+(?=,)/, ""],  // Whitespace before comma - continue
-				[/\s+/, { token: "", next: "@pop" }],  // Whitespace not before comma - pop (query or next param)
-
-				// Match value content
-				{ include: "@expression" },
-
-				// Comma continues the list
-				[/,\s*/, "delimiter.comma"],
-
-				// Fallback: pop if nothing else matches
-				["", { token: "", next: "@pop" }],
-			],
-
-			embeddedPromQL: promQLQuery,
-			...promQLOverrideRules,
+			// ------------------------------------------------------------- PROMQL
+			...promQLStates,
 		},
 	};
 };
