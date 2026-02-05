@@ -83,7 +83,7 @@ export const create = (
 							"@promQLCommand": {
 								token: "keyword.command.source.promql",
 								switchTo: "@promqlBlock",
-								nextEmbedded: 'promql'
+								//nextEmbedded: 'promql'
 							},
 							"@headerCommands": { token: "keyword.command.header.$0" },
 							"@default": {
@@ -187,7 +187,7 @@ export const create = (
 			exactCommandName: [
 				[
 					withLowercaseVariants(promQLCommand).join("|"),
-					{ token: "keyword.command.source.promql", switchTo: "@promqlBlock", nextEmbedded: 'promql' },
+					{ token: "keyword.command.source.promql", switchTo: "@promqlBlock" }, //,nextEmbedded: 'promql' },
 				],
 				[
 					withLowercaseVariants(headerCommands).join("|"),
@@ -302,7 +302,48 @@ export const create = (
 			],
 
 			// ------------------------------------------------------------- PromQL
-			promqlBlock: promQLBlock,
+			promqlBlock: [
+				{ include: "@whitespace" },
+				[
+					// 5 groups: (name)(whitespaces)(=)(whitespaces)(value)
+					/(\S+)(\s*)(=)(\s*)(\S+)/,
+					[
+						// Group 1: param name
+						{
+							cases: {
+								"\".*\"": "string",
+								"`.*`": "string",
+								"\\?{1,9}([a-zA-Z_][a-zA-Z_0-9]*|[0-9]+)": "variable",
+								"@default": "identifier",
+							}
+						},
+						// Group 2: optional whitespaces before =
+						"",
+						// Group 3: assignment operator
+						"delimiter.assignment",
+						// Group 4: optional whitespaces after =
+						"",
+						// Group 5: param value
+						{
+							cases: {
+								"\\(.*\\)": { token: "@rematch", switchTo: "@embeddedPromQL", nextEmbedded: "promql", log: 'found $0 in state $S0 (go to embeddedPromQL case)' },
+								"\".*\"": "string",
+								"`.*`": "string",
+								"\\?{1,9}([a-zA-Z_][a-zA-Z_0-9]*|[0-9]+)": "variable",
+								//HD falta el index
+								"@default": "identifier"
+							}
+						}
+					]
+				],
+				// Fallback: start PromQL embedding
+				[
+					/.+/,
+					{ token: "@rematch", switchTo: "@embeddedPromQL", nextEmbedded: "promql", log: 'found $0 in state $S0 (go to embeddedPromQL)' },
+				],
+			],
+
+			embeddedPromQL: promQLBlock,
 			...promQLOverrideRules,
 		},
 	};

@@ -1,11 +1,19 @@
 SET foo = "bar"; // Cool setting!
 SET some_setting /* comment */ = 123;
 
-PROMQL /* some comment*/ index=metrics-* step="5m"  //other comment
+PROMQL (sum(bytes) by host)
+| PROMQL sum(bytes) by host
+| PROMQL index=metrics-* step="5m" col0=(sum(bytes) by host)
+| PROMQL index=metrics-* step="5m" (sum(bytes) by host)
+| PROMQL index=metrics-* step="5m" sum(bytes) by host
+| PROMQL "index"=metrics-* step="5m" sum(bytes) by host
+| PROMQL ?param=metrics-* step= ?param col0=sum(bytes) by host
+| PROMQL /* some comment*/ index=metrics-* step="5m"  //other comment
   col0=(sum(bytes) by host)
+| PROMQL index=metrics-*, index1,  index2  step=?param col0=sum(bytes) by host
 
 // This is a comment, not a "string"
-/*asdf*/  EXPLAIN [ FROM index, "this=that", <logs-{now/d}> ]
+/*asdf*/  | EXPLAIN [ FROM index, "this=that", <logs-{now/d}> ]
   | FROM index, metrics:index, "another_index", """index""", metrics-metrics-metrics METADATA _id, _index
   | ROW num = 123, another_field = "value", arr.nested = [1, 2, 3], nested.`escaped`.??param = NULL
   /* This is a multiline
