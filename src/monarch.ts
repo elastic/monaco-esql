@@ -316,71 +316,34 @@ export const create = (
 				],
 			],
 
-			// State to tokenize a single param (name=value), then pop back
+			// State to tokenize param name, then switch to value
 			promqlParam: [
-				// Param name: quoted string
-				[/"(?:[^"\\]|\\.)*"/, "string"],
-				// Param name: backtick identifier
-				[/`[^`]+`/, "string"],
-				// Param name: variable
-				[
-					/\?[a-zA-Z_0-9]*/,
-					{
-						cases: {
-							"\\?[a-zA-Z_][a-zA-Z_0-9]*": "variable.name.named",
-							"\\?[0-9]+": "variable.name.positional",
-							"@default": "variable.name.unnamed",
-						},
-					},
-				],
-				// Param name: identifier
-				[/[a-zA-Z_][a-zA-Z_0-9]*/, "identifier"],
-				// Whitespace before =
-				[/\s+/, ""],
-				// Assignment operator - switch to value state
+				{ include: "@whitespace" },
+				{ include: "@literal" },  // Handles ?params, numbers
+				[/"/, "string", "@string"],  // Double-quoted strings
+				[/`/, "string", "@column_escape_part"],  // Backtick identifiers
+				[/[a-zA-Z_][a-zA-Z_0-9]*/, "identifier"],  // Plain identifiers
+				[/\s+/, ""],  // Whitespace
 				[/=/, { token: "delimiter.assignment", switchTo: "@promqlParamValue" }],
 			],
 
-			// State to parse param values (handles comma-separated lists, strings, etc.)
+			// State to parse param values with pop conditions
 			promqlParamValue: [
-				// Pop conditions FIRST (before consuming whitespace)
-				// 1. Whitespace followed by word= (next param) - pop
-				[/\s+(?=[^\s=]+=)/, { token: "", next: "@pop" }],
-				// 2. Whitespace followed by identifier( (function call = query start) - pop
-				[/\s+(?=[a-zA-Z_][a-zA-Z_0-9]*\()/, { token: "", next: "@pop" }],
-				// 3. Whitespace followed by ( (query with parens) - pop
-				[/\s+(?=\()/, { token: "", next: "@pop" }],
+				// Pop conditions FIRST (before other rules)
+				[/\s+(?=[^\s=]+\s*=)/, { token: "", next: "@pop" }],  // Next param: word =
+				[/\s+(?=[a-zA-Z_][a-zA-Z_0-9]*\()/, { token: "", next: "@pop" }],  // Query: func(
+				[/\s+(?=\()/, { token: "", next: "@pop" }],  // Query: (
 
-				// Whitespace before value content - consume and continue
-				// Before quotes, params, or identifiers (index patterns)
-				[/\s+(?=["'`?a-zA-Z_*])/, ""],
-				// Before comma
-				[/\s+(?=,)/, ""],
-				
-				// Double-quoted string values
-				[/"(?:[^"\\]|\\.)*"/, "string"],
-				// Backtick-quoted identifiers
-				[/`[^`]+`/, "string"],
-				// Named/positional params
-				[
-					/\?[a-zA-Z_0-9]*/,
-					{
-						cases: {
-							"\\?[a-zA-Z_][a-zA-Z_0-9]*": "variable.name.named",
-							"\\?[0-9]+": "variable.name.positional",
-							"@default": "variable.name.unnamed",
-						},
-					},
-				],
-				// Identifiers (index patterns with -, *, :)
-				[/[a-zA-Z_*][a-zA-Z_0-9*:-]*/, "identifier"],
-				// Comma with optional whitespace (continues the value list)
-				[/\s*,\s*/, "delimiter"],
+				// Reuse existing rules for value content
+				{ include: "@literal" },  // Handles ?params, numbers, time intervals
+				[/"/, "string", "@string"],  // Double-quoted strings
+				[/`/, "string", "@column_escape_part"],  // Backtick identifiers
+				[/[a-zA-Z_*][a-zA-Z_0-9*:-]*/, "identifier"],  // Identifiers (index patterns)
+				[/\s*,\s*/, "delimiter"],  // Comma (continues list)
+				[/\s+/, ""],  // Whitespace within value
 
-				// End of line - pop
+				// End conditions
 				[/$/, { token: "", next: "@pop" }],
-				
-				// Fallback: pop
 				["", { token: "", next: "@pop" }],
 			],
 
