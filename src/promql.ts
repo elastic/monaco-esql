@@ -62,7 +62,7 @@ export const promqlParamValue: languages.IMonarchLanguageRule[] = [
 ];
 
 /**
- * These rules are applied while tokenizing the query content.
+ * These rules are applied while tokenizing the query content (inside the embedding language).
  * They run "in parallel" with the rules from the embedded language.
  * We use them the tell the embedded language when the query ends (when a pipe is found).
  * And to be able to tokenize ES|QL comments within the PROMQL query.
