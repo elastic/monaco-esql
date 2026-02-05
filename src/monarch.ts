@@ -8,7 +8,7 @@
  */
 
 import type { languages } from "monaco-editor";
-import { promQLBlock, promQLOverrideRules } from "./promql";
+import { promQLQuery, promQLOverrideRules } from "./promql";
 
 export type CreateDependencies = Partial<typeof import("./definitions")>;
 
@@ -30,8 +30,6 @@ export const create = (
 		a > b ? -1 : 1,
 	);
 
-	const promQLCommand = ["PROMQL"];
-
 	return {
 		// Uncomment when developing.
 		// defaultToken: "invalid",
@@ -44,7 +42,6 @@ export const create = (
 		sourceCommands: withLowercaseVariants(sourceCommands),
 		processingCommands: withLowercaseVariants(processingCommands),
 		processingCommandsOnlyUppercase: processingCommands,
-		promQLCommand: withLowercaseVariants(promQLCommand),
 		options: withLowercaseVariants(options),
 		literals: withLowercaseVariants(literals),
 		functions: withLowercaseVariants(functions),
@@ -80,10 +77,9 @@ export const create = (
 					/[a-zA-Z]+/,
 					{
 						cases: {
-							"@promQLCommand": {
+							"PROMQL|promql": {
 								token: "keyword.command.source.promql",
-								switchTo: "@promqlBlock",
-								//nextEmbedded: 'promql'
+								switchTo: "@promQLCommand",
 							},
 							"@headerCommands": { token: "keyword.command.header.$0" },
 							"@default": {
@@ -186,8 +182,8 @@ export const create = (
 
 			exactCommandName: [
 				[
-					withLowercaseVariants(promQLCommand).join("|"),
-					{ token: "keyword.command.source.promql", switchTo: "@promqlBlock" }, //,nextEmbedded: 'promql' },
+					'PROMQL|promql',
+					{ token: "keyword.command.source.promql", switchTo: "@promQLCommand" },
 				],
 				[
 					withLowercaseVariants(headerCommands).join("|"),
@@ -301,15 +297,19 @@ export const create = (
 				[/`/, "string", "@pop"],
 			],
 
-			// ------------------------------------------------------------- PROMQL
-			promqlBlock: [
+			// -------------------- PROMQL --------------------------------------------------------
+			// The aim of this state is to detect when the params section ends and the query starts.
+			// PROMQL <params>* <query>
+			// PROMQL <params>* (<query>)
+			// PROMQL <params>* col=(<query>)
+			promQLCommand: [
 				{ include: "@whitespace" },
 				// Match param pattern: paramName = ...
 				[
 					/[a-zA-Z0-9_*?"`-]+\s*=\s*/,
 					{ token: "@rematch", next: "@promqlParam" },
 				],
-				// Fallback: start PromQL embedding (no more params)
+				// Start PromQL query embedding (no more params)
 				[
 					/.+/,
 					{ token: "@rematch", switchTo: "@embeddedPromQL", nextEmbedded: "promql" },
@@ -320,27 +320,28 @@ export const create = (
 			promqlParam: [
 				// Match param name
 				{ include: "@expression" },
-				// Tokenize assignment and go to tokenize the param value
-				[/=/, { token: "delimiter.assignment", switchTo: "@promqlParamValue" }],
+				// Tokenize assignment (with optional trailing whitespace) and go to value
+				[/=\s*/, { token: "delimiter.assignment", switchTo: "@promqlParamValue" }],
 			],
 
-			// State to parse param values with pop conditions
+			// State to parse param values
+			// The way of detecting a param value ended is by detecting whitespaces that are not followed by a comma.
 			promqlParamValue: [
-				// Pop conditions that ends the value tokenization
-				[/\s+(?=[a-zA-Z0-9_*?"`-]+\s*=)/, { token: "", next: "@pop" }],  // Next param: word =
-				[/\s+(?=[a-zA-Z_][a-zA-Z_0-9]*\()/, { token: "", next: "@pop" }],  // Query: func(
-				[/\s+(?=\()/, { token: "", next: "@pop" }],  // Query: (
+				// Whitespace handling: comma continues list, otherwise pop
+				[/\s+(?=,)/, ""],  // Whitespace before comma - continue
+				[/\s+/, { token: "", next: "@pop" }],  // Whitespace not before comma - pop (query or next param)
 
+				// Value content
 				{ include: "@expression" },
 
-				[/\s*,\s*/, "delimiter.comma"],  // Comma (continues list)
+				// Comma continues the list
+				[/,\s*/, "delimiter.comma"],
 
-				// End conditions
-				[/$/, { token: "", next: "@pop" }],
+				// Fallback: pop if nothing else matches
 				["", { token: "", next: "@pop" }],
 			],
 
-			embeddedPromQL: promQLBlock,
+			embeddedPromQL: promQLQuery,
 			...promQLOverrideRules,
 		},
 	};

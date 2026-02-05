@@ -8,7 +8,7 @@
  */
 import type { languages } from "monaco-editor";
 
-export const promQLBlock: languages.IMonarchLanguageRule[] = [	
+export const promQLQuery: languages.IMonarchLanguageRule[] = [	
     // Rules to delegate comments to ES|QL	
 	[
 		/\/\*\*(?!\/)/,
