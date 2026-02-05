@@ -318,12 +318,7 @@ export const create = (
 
 			// State to tokenize param name, then switch to value
 			promqlParam: [
-				{ include: "@whitespace" },
-				{ include: "@literal" },  // Handles ?params, numbers
-				[/"/, "string", "@string"],  // Double-quoted strings
-				[/`/, "string", "@column_escape_part"],  // Backtick identifiers
-				[/[a-zA-Z_][a-zA-Z_0-9]*/, "identifier"],  // Plain identifiers
-				[/\s+/, ""],  // Whitespace
+				{ include: "@expression" },
 				[/=/, { token: "delimiter.assignment", switchTo: "@promqlParamValue" }],
 			],
 
