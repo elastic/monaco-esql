@@ -301,12 +301,12 @@ export const create = (
 				[/`/, "string", "@pop"],
 			],
 
-			// ------------------------------------------------------------- PromQL
+			// ------------------------------------------------------------- PROMQL
 			promqlBlock: [
 				{ include: "@whitespace" },
-				// Match param pattern: word = (with optional spaces around =)
+				// Match param pattern: paramName = ...
 				[
-					/[^\s=]+\s*=\s*/,
+					/[a-zA-Z0-9_*?"`-]+\s*=\s*/,
 					{ token: "@rematch", next: "@promqlParam" },
 				],
 				// Fallback: start PromQL embedding (no more params)
@@ -318,18 +318,19 @@ export const create = (
 
 			// State to tokenize param name, then switch to value
 			promqlParam: [
+				// Match param name
 				{ include: "@expression" },
+				// Tokenize assignment and go to tokenize the param value
 				[/=/, { token: "delimiter.assignment", switchTo: "@promqlParamValue" }],
 			],
 
 			// State to parse param values with pop conditions
 			promqlParamValue: [
-				// Pop conditions FIRST (before other rules)
-				[/\s+(?=[^\s=]+\s*=)/, { token: "", next: "@pop" }],  // Next param: word =
+				// Pop conditions that ends the value tokenization
+				[/\s+(?=[a-zA-Z0-9_*?"`-]+\s*=)/, { token: "", next: "@pop" }],  // Next param: word =
 				[/\s+(?=[a-zA-Z_][a-zA-Z_0-9]*\()/, { token: "", next: "@pop" }],  // Query: func(
 				[/\s+(?=\()/, { token: "", next: "@pop" }],  // Query: (
 
-				// Reuse existing rules for value content
 				{ include: "@expression" },
 
 				[/\s*,\s*/, "delimiter.comma"],  // Comma (continues list)
