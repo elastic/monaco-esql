@@ -13,7 +13,7 @@ import type { languages } from "monaco-editor";
  * 1. Detect when the params section ends and the query starts, so we can apply the promql query embedding.
  *    For this we tokenize the params section with dedicated states, before delegating to the promql query embedding.
  *
- * 2. We need to correctly tokenize ES|QL comments syntax withing a promql query.
+ * 2. We need to correctly tokenize ES|QL comments syntax within a promql query.
  *    For this we use the promQLQuery state, which is applied while tokenizing the query content.
  *    It will tell the embedded language when the query ends (when a pipe is found).
  *    And will switch to dedicated states for handling comments.
