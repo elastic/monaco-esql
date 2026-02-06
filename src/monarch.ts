@@ -81,7 +81,10 @@ export const create = (
 								token: "keyword.command.source.promql",
 								switchTo: "@promQLCommand",
 							},
-							"@headerCommands": { token: "keyword.command.header.$0" },
+							"@headerCommands": {
+								token: "keyword.command.header.$0",
+								switchTo: "@restOfQuery",
+							},
 							"@default": {
 								token: "keyword.command.source.$0",
 								switchTo: "@restOfQuery",
