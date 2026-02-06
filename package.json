@@ -1,6 +1,6 @@
 {
   "name": "@elastic/monaco-esql",
-  "version": "3.1.15",
+  "version": "3.1.17",
   "private": false,
   "publishConfig": {
     "access": "public",
@@ -24,7 +24,7 @@
     "build": "yarn build:es2020",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
-    "release": "npx release-it --ci",
+    "release": "npx release-it --ci --no-increment",
     "prepare": "husky"
   },
   "license": "MIT",
