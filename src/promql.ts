@@ -86,6 +86,11 @@ export const promQLQuery: languages.IMonarchLanguageRule[] = [
 			nextEmbedded: "@pop",
 		},
 	],
+
+	// String handling, to avoid exiting when finding a pipe inside a string.
+	[/"/, { token: "string", next: "@promqlDoubleString", nextEmbedded: "@pop" }],
+	[/`/, { token: "string", next: "@promqlBacktickString", nextEmbedded: "@pop" }],
+
 	// Exit condition
 	[
 		/\|/,
@@ -98,7 +103,7 @@ export const promQLQuery: languages.IMonarchLanguageRule[] = [
 ];
 
 /**
- * These states are used for returning the control the promql embedding after a comment ends.
+ * These states are used for returning control to the promql embedding after a comment or string ends.
  */
 const promQLQueryOverrideRules: {
 	[name: string]: languages.IMonarchLanguageRule[];
@@ -117,6 +122,18 @@ const promQLQueryOverrideRules: {
 
 	promqlLineComment: [
 		[/.*$/, { token: "comment", next: "@pop", nextEmbedded: "promql" }],
+	],
+
+	promqlDoubleString: [
+		[/[^"\\]+/, "string"],
+		[/\\./, "string.escape"],
+		[/"/, { token: "string", next: "@pop", nextEmbedded: "promql" }],
+	],
+
+	promqlBacktickString: [
+		[/[^`\\]+/, "string"],
+		[/\\./, "string.escape"],
+		[/`/, { token: "string", next: "@pop", nextEmbedded: "promql" }],
 	],
 };
 
