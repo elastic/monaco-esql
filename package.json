@@ -78,7 +78,7 @@
     "lint-staged": "16.2.7",
     "monaco-editor": "0.55.1",
     "monaco-promql": "1.8.0",
-    "playwright": "1.57.0",
+    "playwright": "1.58.0",
     "react": "19.2.3",
     "react-dom": "19.2.3",
     "storybook": "10.2.6",
