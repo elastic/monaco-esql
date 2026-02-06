@@ -8,6 +8,7 @@
  */
 
 import type { languages } from "monaco-editor";
+import { promQLStates } from "./promql";
 
 export type CreateDependencies = Partial<typeof import("./definitions")>;
 
@@ -76,6 +77,10 @@ export const create = (
 					/[a-zA-Z]+/,
 					{
 						cases: {
+							"PROMQL|promql": {
+								token: "keyword.command.source.promql",
+								switchTo: "@promQLCommand",
+							},
 							"@headerCommands": { token: "keyword.command.header.$0" },
 							"@default": {
 								token: "keyword.command.source.$0",
@@ -176,6 +181,13 @@ export const create = (
 			],
 
 			exactCommandName: [
+				[
+					"PROMQL|promql",
+					{
+						token: "keyword.command.source.promql",
+						switchTo: "@promQLCommand",
+					},
+				],
 				[
 					withLowercaseVariants(headerCommands).join("|"),
 					{ token: "keyword.command.header.$0", switchTo: "@restOfQuery" },
@@ -287,6 +299,9 @@ export const create = (
 				[/\\./, "string.escape.invalid"],
 				[/`/, "string", "@pop"],
 			],
+
+			// ------------------------------------------------------------- PROMQL
+			...promQLStates,
 		},
 	};
 };

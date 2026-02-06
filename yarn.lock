@@ -2979,6 +2979,11 @@ monaco-editor@0.55.1:
     dompurify "3.2.7"
     marked "14.0.0"
 
+monaco-promql@1.8.0:
+  version "1.8.0"
+  resolved "https://registry.yarnpkg.com/monaco-promql/-/monaco-promql-1.8.0.tgz#3fb16d11e58474e1e8bf08514eb762da51aa88d4"
+  integrity sha512-XdgRojBzEe/rKtrJaHbSfoMFOMD5TXymDHIitTngmBT6XEjtAirnA7Rb2YJAO1SZrJfgvAo4LFCzJ71fH7+WOw==
+
 mrmime@^2.0.0:
   version "2.0.1"
   resolved "https://registry.yarnpkg.com/mrmime/-/mrmime-2.0.1.tgz#bc3e87f7987853a54c9850eeb1f1078cd44adddc"

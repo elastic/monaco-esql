@@ -12,13 +12,14 @@ import type { Meta, StoryObj } from "@storybook/react-vite";
 import Editor from "@monaco-editor/react";
 import example from "../../example.esql?raw";
 import { language } from "../monarch-shared";
+import { promLanguageDefinition } from "monaco-promql";
 
 const meta: Meta = {
 	title: "Editor",
 };
 
 export default meta;
-
+const promqlLanguageId = promLanguageDefinition.id;
 export const Primary: StoryObj<typeof meta> = {
 	render: () => (
 		<div>
@@ -29,7 +30,18 @@ export const Primary: StoryObj<typeof meta> = {
 				defaultValue={example}
 				onMount={(_, monaco) => {
 					monaco.languages.register({ id: "esql" });
+					monaco.languages.register(promLanguageDefinition);
 					monaco.languages.setMonarchTokensProvider("esql", language);
+					promLanguageDefinition.loader().then((mod) => {
+						monaco.languages.setMonarchTokensProvider(
+							promqlLanguageId,
+							mod.language,
+						);
+						monaco.languages.setLanguageConfiguration(
+							promqlLanguageId,
+							mod.languageConfiguration,
+						);
+					});
 				}}
 			/>
 		</div>
