@@ -89,7 +89,10 @@ export const promQLQuery: languages.IMonarchLanguageRule[] = [
 
 	// String handling, to avoid exiting when finding a pipe inside a string.
 	[/"/, { token: "string", next: "@promqlDoubleString", nextEmbedded: "@pop" }],
-	[/`/, { token: "string", next: "@promqlBacktickString", nextEmbedded: "@pop" }],
+	[
+		/`/,
+		{ token: "string", next: "@promqlBacktickString", nextEmbedded: "@pop" },
+	],
 
 	// Exit condition
 	[
