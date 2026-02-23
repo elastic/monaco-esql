@@ -19,7 +19,17 @@ export default [
   {languageOptions: { globals: {...globals.browser, ...globals.node} }},
   pluginJs.configs.recommended,
   ...tseslint.configs.recommended,
-  pluginReact.configs.flat.recommended,
+  // TODO: Temporary workaround for ESLint 10 + eslint-plugin-react detect crash.
+  // Keep React rules scoped to TSX and use explicit React major until detect is fixed upstream.
+  {
+    files: ["src/**/*.tsx"],
+    ...pluginReact.configs.flat.recommended,
+    settings: {
+      react: {
+        version: "19.0",
+      },
+    },
+  },
   {
     plugins: {
       "local-rules": {
@@ -30,11 +40,6 @@ export default [
     },
     rules: {
       "local-rules/require-license-header": ["error", { license: licenseHeader }],
-    },
-    settings: {
-      react: {
-        version: "detect",
-      },
     },
   },
 ];
