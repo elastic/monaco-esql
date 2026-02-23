@@ -19,6 +19,8 @@ export default [
   {languageOptions: { globals: {...globals.browser, ...globals.node} }},
   pluginJs.configs.recommended,
   ...tseslint.configs.recommended,
+  // TODO: Temporary workaround for ESLint 10 + eslint-plugin-react detect crash.
+  // Keep React rules scoped to TSX and use explicit React major until detect is fixed upstream.
   {
     files: ["src/**/*.tsx"],
     ...pluginReact.configs.flat.recommended,
