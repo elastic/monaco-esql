@@ -263,7 +263,7 @@ export const temporalUnits: TemporalUnit[] = [
 	["WEEK", "W", "WEEKS"],
 	["DAY", "D", "DAYS"],
 	["HOUR", "H", "HOURS"],
-	["MINUTE", "MIN", "MINUTES"],
+	["MINUTE", "M", "MIN", "MINUTES"],
 	["SECOND", "S", "SEC", "SECONDS"],
 	["MILLISECOND", "MS", "MILLISECONDS"],
 ];
