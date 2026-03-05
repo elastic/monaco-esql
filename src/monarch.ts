@@ -173,7 +173,7 @@ export const create = (
 					/\(/,
 					{
 						token: "delimiter.parenthesis",
-						switchTo: "@firstCommandNameInSubQuery",
+						next: "@firstCommandNameInSubQuery",
 					},
 				],
 			],
@@ -211,8 +211,8 @@ export const create = (
 				// Try to match an exact command name
 				{ include: "@exactCommandName" },
 
-				// If not matched, go to restOfQuery
-				{ include: "@restOfQuery" },
+				// If not matched, go to the previous state
+				["", { token: "", next: "@pop" }],
 			],
 
 			// Matches *command name*, i.e. the mnemonic.
