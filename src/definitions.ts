@@ -64,6 +64,7 @@ export const options = [
 	"SCORE",
 	"KEY",
 	"GROUP",
+	"LIMIT",
 ];
 
 export const literals = ["TRUE", "FALSE", "NULL"];
