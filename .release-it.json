@@ -1,9 +1,7 @@
 {
   "git": {
     "commit": false,
-    "tagName": "v${version}",
-    "push": true,
-    "requireUpstream": false
+    "tagName": "v${version}"
   },
   "github": {
     "release": true,
