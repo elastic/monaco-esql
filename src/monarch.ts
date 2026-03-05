@@ -266,7 +266,7 @@ export const create = (
 				],
 			],
 
-			timeInterval: [[`(@digits)\\s*(${timeUnits.join("|")})`, "number.time"]],
+			timeInterval: [[`(@digits)\\s*(${timeUnits.join("|")})\\b`, "number.time"]],
 
 			number: [
 				[/(@digits)[eE]([-+]?(@digits))?/, "number.float"],
