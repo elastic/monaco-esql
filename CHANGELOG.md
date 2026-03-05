@@ -1,6 +1,12 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
+## [3.1.21] - 2026-03-06
+ 
+### Changed
+
+- Highlighting support for MMR command.
+
 ## [3.1.20] - 2026-03-05
  
 ### Changed
