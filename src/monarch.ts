@@ -104,10 +104,10 @@ export const create = (
 						cases: {
 							"@headerCommands": { token: "keyword.command.header.$0" },
 							"@sourceCommands": { token: "keyword.command.source.$0" },
+							"@options": { token: "keyword.option.$0" },
 							"@processingCommandsOnlyUppercase": {
 								token: "keyword.command.processing.$0",
 							},
-							"@options": { token: "keyword.option.$0" },
 							"@literals": { token: "keyword.literal.$0" },
 							"@functions": { token: "identifier.function.$0" },
 							"@namedOperators": { token: "keyword.operator.$0" },
