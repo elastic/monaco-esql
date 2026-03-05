@@ -41,6 +41,7 @@ export const processingCommands = [
 	"LOOKUP JOIN",
 	"LOOKUP",
 	"METRICS",
+	"MMR",
 	"MV_EXPAND",
 	"REGISTERED_DOMAIN",
 	"RENAME",
