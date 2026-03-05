@@ -1,6 +1,6 @@
 {
   "git": {
-    "commitMessage": "Release ${version}",
+    "commit": false,
     "tagName": "v${version}"
   },
   "github": {
