@@ -1,7 +1,9 @@
 {
   "git": {
-    "commitMessage": "Release ${version}",
-    "tagName": "v${version}"
+    "commit": false,
+    "tagName": "v${version}",
+    "push": true,
+    "requireUpstream": false
   },
   "github": {
     "release": true,
