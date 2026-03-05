@@ -104,10 +104,10 @@ export const create = (
 						cases: {
 							"@headerCommands": { token: "keyword.command.header.$0" },
 							"@sourceCommands": { token: "keyword.command.source.$0" },
+							"@options": { token: "keyword.option.$0" },
 							"@processingCommandsOnlyUppercase": {
 								token: "keyword.command.processing.$0",
 							},
-							"@options": { token: "keyword.option.$0" },
 							"@literals": { token: "keyword.literal.$0" },
 							"@functions": { token: "identifier.function.$0" },
 							"@namedOperators": { token: "keyword.operator.$0" },
@@ -173,7 +173,7 @@ export const create = (
 					/\(/,
 					{
 						token: "delimiter.parenthesis",
-						switchTo: "@firstCommandNameInSubQuery",
+						next: "@firstCommandNameInSubQuery",
 					},
 				],
 			],
@@ -211,8 +211,8 @@ export const create = (
 				// Try to match an exact command name
 				{ include: "@exactCommandName" },
 
-				// If not matched, go to restOfQuery
-				{ include: "@restOfQuery" },
+				// If not matched, go to the previous state
+				["", { token: "", next: "@pop" }],
 			],
 
 			// Matches *command name*, i.e. the mnemonic.
@@ -266,7 +266,9 @@ export const create = (
 				],
 			],
 
-			timeInterval: [[`(@digits)\\s*(${timeUnits.join("|")})`, "number.time"]],
+			timeInterval: [
+				[`(@digits)\\s*(${timeUnits.join("|")})\\b`, "number.time"],
+			],
 
 			number: [
 				[/(@digits)[eE]([-+]?(@digits))?/, "number.float"],
