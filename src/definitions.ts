@@ -42,6 +42,7 @@ export const processingCommands = [
 	"LOOKUP",
 	"METRICS",
 	"MV_EXPAND",
+	"REGISTERED_DOMAIN",
 	"RENAME",
 	"RERANK",
 	"RIGHT JOIN",
@@ -49,6 +50,7 @@ export const processingCommands = [
 	"SAMPLE",
 	"SORT",
 	"STATS",
+	"URI_PARTS",
 	"WHERE",
 ];
 
