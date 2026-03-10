@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+## [3.2.1] - 2026-03-10
+
+### Changed
+
+- Highlighting support for TS_INFO command.
+
 ## [3.2.0] - 2026-03-10
 
 ### Changed
