@@ -40,6 +40,7 @@ export const processingCommands = [
 	"LIMIT",
 	"LOOKUP JOIN",
 	"LOOKUP",
+	"METRICS_INFO",
 	"METRICS",
 	"MMR",
 	"MV_EXPAND",
