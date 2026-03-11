@@ -196,8 +196,9 @@ export const create = (
 					{ token: "keyword.command.header.$0", switchTo: "@restOfQuery" },
 				],
 				[
-					withLowercaseVariants(sourceCommands).join("|"),
-					{ token: "keyword.command.source.$0", switchTo: "@restOfQuery" },
+					// prevents partial matches (e.g. "TS" matching inside "TS_INFO")
+					`(?:${withLowercaseVariants(sourceCommands).join("|")})(?![_a-zA-Z0-9])`,
+					{ token: "keyword.command.source.$0", switchTo: "@restOfQuery" },
 				],
 				[
 					withLowercaseVariants(processingCommands).join("|"),
