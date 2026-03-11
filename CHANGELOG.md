@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+## [3.2.2] - 2026-03-11
+
+### Changed
+
+- fix: prevent partial command name matches in Monarch tokenizer
+
 ## [3.2.1] - 2026-03-10
 
 ### Changed
