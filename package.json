@@ -59,7 +59,7 @@
   },
   "devDependencies": {
     "@babel/eslint-parser": "7.28.6",
-    "@biomejs/biome": "2.4.5",
+    "@biomejs/biome": "2.4.7",
     "@chromatic-com/storybook": "5.0.1",
     "@eslint/js": "10.0.1",
     "@monaco-editor/react": "4.7.0",
