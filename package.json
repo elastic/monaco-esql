@@ -60,7 +60,7 @@
   "devDependencies": {
     "@babel/eslint-parser": "7.28.6",
     "@biomejs/biome": "2.4.7",
-    "@chromatic-com/storybook": "5.0.1",
+    "@chromatic-com/storybook": "5.0.2",
     "@eslint/js": "10.0.1",
     "@monaco-editor/react": "4.7.0",
     "@storybook/addon-docs": "10.3.3",
