@@ -48,6 +48,12 @@ SET some_setting /* comment */ = 123;
   | RIGHT JOIN join_index ON field1, field2, field3
   | LOOKUP JOIN join_index AS x ON x.foo = bar
   | FUSE linear SCORE BY field1 KEY BY field2 GROUP BY field3 WITH {"normalizer": "minmax"}
+  | EVAL buckets = DATE_TRUNC(5 m, @timestamp)
+  | MMR ON dense_embedding LIMIT 10 WITH {"lambda": 0.5}
+  | MMR ([0.1, 0.2])::DENSE_VECTOR
+        ON dense_embedding
+        LIMIT 10
+        WITH {"lambda": 0.5}
 
 // PROMQL examples
 | PROMQL (sum(bytes) by host)

@@ -41,7 +41,9 @@ export const processingCommands = [
 	"LOOKUP JOIN",
 	"LOOKUP",
 	"METRICS",
+	"MMR",
 	"MV_EXPAND",
+	"REGISTERED_DOMAIN",
 	"RENAME",
 	"RERANK",
 	"RIGHT JOIN",
@@ -49,6 +51,7 @@ export const processingCommands = [
 	"SAMPLE",
 	"SORT",
 	"STATS",
+	"URI_PARTS",
 	"WHERE",
 ];
 
@@ -61,6 +64,7 @@ export const options = [
 	"SCORE",
 	"KEY",
 	"GROUP",
+	"LIMIT",
 ];
 
 export const literals = ["TRUE", "FALSE", "NULL"];
