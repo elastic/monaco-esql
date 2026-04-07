@@ -20,7 +20,7 @@
     "lint:fix": "eslint . --fix",
     "test": "echo \"no tests...\"",
     "clean": "npx rimraf@5.0.5 lib",
-    "build:es2020": "tsc --project tsconfig.build.json --module commonjs --target es2020 --outDir lib",
+    "build:es2020": "tsc --project tsconfig.build.json --outDir lib",
     "build": "yarn build:es2020",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
