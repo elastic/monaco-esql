@@ -20,7 +20,7 @@
     "lint:fix": "eslint . --fix",
     "test": "echo \"no tests...\"",
     "clean": "npx rimraf@5.0.5 lib",
-    "build:es2020": "tsc --project tsconfig.build.json --module commonjs --target es2020 --outDir lib",
+    "build:es2020": "tsc --project tsconfig.build.json",
     "build": "yarn build:es2020",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
@@ -82,7 +82,7 @@
     "react": "19.2.4",
     "react-dom": "19.2.4",
     "storybook": "10.3.3",
-    "typescript": "5.9.3",
+    "typescript": "6.0.2",
     "typescript-eslint": "8.57.2",
     "vitest": "4.1.2"
   },
