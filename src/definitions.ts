@@ -54,6 +54,7 @@ export const processingCommands = [
 	"SORT",
 	"STATS",
 	"URI_PARTS",
+	"USER_AGENT",
 	"WHERE",
 ];
 
