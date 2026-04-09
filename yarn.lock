@@ -301,10 +301,10 @@
   resolved "https://registry.yarnpkg.com/@blazediff/core/-/core-1.9.1.tgz#ad61c4ec48dc11a2913b9753c8c74902e05e8f14"
   integrity sha512-ehg3jIkYKulZh+8om/O25vkvSsXXwC+skXmyA87FFx6A/45eqOkZsBltMw/TVteb0mloiGT8oGRTcjRAz66zaA==
 
-"@chromatic-com/storybook@5.1.0":
-  version "5.1.0"
-  resolved "https://registry.yarnpkg.com/@chromatic-com/storybook/-/storybook-5.1.0.tgz#43cf2a1ea9a30304f5e2f7329a8e5831f6db20bc"
-  integrity sha512-bXR1RxDO06QltZXYx4z7vxMgNtwKE7+fvRS2mNmPiheaKfld9fGH967ktAFrWCRn53MKIDVi4jipGJ5fEjePqA==
+"@chromatic-com/storybook@5.1.1":
+  version "5.1.1"
+  resolved "https://registry.yarnpkg.com/@chromatic-com/storybook/-/storybook-5.1.1.tgz#58293140d8958376080858367db2c918d1267e7a"
+  integrity sha512-BPoAXHM71XgeCK2u0jKr9i8apeQMm/Z9IWGyndA2FMijfQG9m8ox45DdWh/pxFkK5ClhGgirv5QwMhFIeHmThg==
   dependencies:
     "@neoconfetti/react" "^1.0.0"
     chromatic "^13.3.4"
