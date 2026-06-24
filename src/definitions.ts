@@ -35,6 +35,7 @@ export const processingCommands = [
 	"INFO",
 	"INLINESTATS",
 	"INSIST",
+	"IP_LOCATION",
 	"JOIN",
 	"KEEP",
 	"LEFT JOIN",
