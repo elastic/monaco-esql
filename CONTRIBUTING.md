@@ -1,5 +1,11 @@
 # Contributing to Monaco ES|QL
 
+> [!IMPORTANT]
+> This repository has moved to the
+> [`elastic/esql-js`](https://github.com/elastic/esql-js) monorepo, under
+> [`packages/monaco-esql`](https://github.com/elastic/esql-js/tree/main/packages/monaco-esql).
+> Please direct all contributions there; the guidance below no longer applies.
+
 ## Commit Message Convention
 
 This project uses [Conventional Commits](https://www.conventionalcommits.org/) following the **Angular** preset. Releases are automated via [semantic-release](https://github.com/semantic-release/semantic-release), so commit messages directly determine version bumps.

@@ -5,7 +5,10 @@ apiVersion: backstage.io/v1alpha1
 kind: Resource
 metadata:
   name: buildkite-pipeline-monaco-esql
-  description: Buildkite Pipeline for monaco-esql
+  description: >
+    Buildkite Pipeline for monaco-esql.
+    DEPRECATED: this repository has moved to elastic/esql-js
+    (packages/monaco-esql).
   links:
     - title: Pipeline
       url: https://buildkite.com/elastic/monaco-esql
