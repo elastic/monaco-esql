@@ -1,5 +1,12 @@
 # ES|QL syntax grammar for Monaco editor
 
+> [!IMPORTANT]
+> This repository has moved. Development now happens in the
+> [`elastic/esql-js`](https://github.com/elastic/esql-js) monorepo, under
+> [`packages/monaco-esql`](https://github.com/elastic/esql-js/tree/main/packages/monaco-esql).
+> Please open issues and pull requests there instead of here. This repository
+> is kept for historical reference only and is no longer maintained.
+
 This package contains the ES|QL grammar form Monarch (the Monaco editor
 grammar engine).
 
